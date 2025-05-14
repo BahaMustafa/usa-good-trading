@@ -19,4 +19,6 @@ export interface Product {
   updatedAt: Date;
 }
 
-export interface ProductFormData extends Omit<Product, 'id' | 'createdAt' | 'updatedAt'> {} 
+export interface ProductFormData extends Omit<Product, 'id' | 'createdAt' | 'updatedAt'> {
+  // Add at least one property or extend without empty object
+}

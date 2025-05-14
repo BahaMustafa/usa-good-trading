@@ -1,13 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
-  basePath: '/usa-good-trading',
   images: {
-    unoptimized: true,
+    domains: ['res.cloudinary.com'],
   },
-  // This is important for GitHub Pages
-  assetPrefix: '/usa-good-trading/',
-  trailingSlash: true,
-};
+}
 
-module.exports = nextConfig;
+module.exports = nextConfig

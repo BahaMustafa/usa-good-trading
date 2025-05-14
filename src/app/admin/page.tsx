@@ -8,7 +8,6 @@ import { auth } from '@/lib/firebase';
 export default function AdminPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
@@ -101,4 +100,4 @@ export default function AdminPage() {
       </div>
     </main>
   );
-} 
+}

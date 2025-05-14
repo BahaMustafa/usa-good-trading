@@ -92,7 +92,7 @@ export default function Home() {
                   <p className="text-sm text-gray-500">Fashion Retailer</p>
                 </div>
               </div>
-              <p className="text-gray-700">"USA Good Trading has been our go-to supplier for 5 years. Their quality and reliability are unmatched in the industry."</p>
+              <p className="text-gray-700">&quot;USA Good Trading has been our go-to supplier for 5 years. Their quality and reliability are unmatched in the industry.&quot;</p>
             </div>
             <div className="bg-gray-50 p-6 rounded-xl shadow-sm">
               <div className="flex items-center mb-4">
@@ -102,7 +102,7 @@ export default function Home() {
                   <p className="text-sm text-gray-500">Boutique Owner</p>
                 </div>
               </div>
-              <p className="text-gray-700">"The product range and competitive pricing have helped my business grow significantly. Highly recommended!"</p>
+              <p className="text-gray-700">&quot;The product range and competitive pricing have helped my business grow significantly. Highly recommended!&quot;</p>
             </div>
             <div className="bg-gray-50 p-6 rounded-xl shadow-sm">
               <div className="flex items-center mb-4">
@@ -112,7 +112,7 @@ export default function Home() {
                   <p className="text-sm text-gray-500">Department Store Manager</p>
                 </div>
               </div>
-              <p className="text-gray-700">"Their customer service is exceptional. Any issues are resolved quickly, and they always go the extra mile."</p>
+              <p className="text-gray-700">&quot;Their customer service is exceptional. Any issues are resolved quickly, and they always go the extra mile.&quot;</p>
             </div>
           </div>
         </div>
