@@ -33,7 +33,7 @@ export default function ProductForm({ productId }: ProductFormProps) {
     if (productId) {
       fetchProduct();
     }
-  }, [productId]);
+  }, [productId, fetchProduct]); // Add fetchProduct to dependency array
 
   const fetchProduct = async () => {
     try {
@@ -109,14 +109,14 @@ export default function ProductForm({ productId }: ProductFormProps) {
     setLoading(true);
 
     try {
-      let productData = {
+      const productData = { // Change let to const
         ...formData,
         createdAt: productId ? undefined : new Date(),
         updatedAt: new Date(),
       };
       // Remove undefined fields at the top level
       Object.keys(productData).forEach(
-        (key) => (productData as any)[key] === undefined && delete (productData as any)[key]
+        (key) => (productData as Record<string, unknown>)[key] === undefined && delete (productData as Record<string, unknown>)[key]
       );
       // Remove undefined from arrays
       if (Array.isArray(productData.images)) {
@@ -131,7 +131,7 @@ export default function ProductForm({ productId }: ProductFormProps) {
       // Remove undefined from nested priceRange object
       if (productData.priceRange) {
         Object.keys(productData.priceRange).forEach(
-          (key) => (productData.priceRange as any)[key] === undefined && delete (productData.priceRange as any)[key]
+          (key) => (productData.priceRange as Record<string, unknown>)[key] === undefined && delete (productData.priceRange as Record<string, unknown>)[key]
         );
       }
 
@@ -345,4 +345,4 @@ export default function ProductForm({ productId }: ProductFormProps) {
       </div>
     </form>
   );
-} 
+}

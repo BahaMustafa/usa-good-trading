@@ -20,5 +20,5 @@ export interface Product {
 }
 
 export interface ProductFormData extends Omit<Product, 'id' | 'createdAt' | 'updatedAt'> {
-  // Add at least one property or extend without empty object
+  id?: string; // Add at least one property to avoid empty interface error
 }

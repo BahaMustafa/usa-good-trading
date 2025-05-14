@@ -9,6 +9,7 @@ export default function AdminPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(''); // Add missing error state
   const router = useRouter();
 
   useEffect(() => {
