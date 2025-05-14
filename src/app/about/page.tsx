@@ -27,6 +27,32 @@ export default function AboutPage() {
           </p>
         </div>
         
+        <div className="bg-white rounded-xl shadow-md p-8 mb-8">
+          <h2 className="text-2xl font-semibold mb-4">Frequently Asked Questions</h2>
+          
+          <div className="space-y-6">
+            <div>
+              <h3 className="text-lg font-medium mb-2">What is the minimum order quantity?</h3>
+              <p className="text-gray-700">Our minimum order quantity varies by product category. Please contact us for specific details about the products you're interested in.</p>
+            </div>
+            
+            <div>
+              <h3 className="text-lg font-medium mb-2">Do you offer international shipping?</h3>
+              <p className="text-gray-700">Yes, we ship to select international destinations. Shipping costs and delivery times vary by location.</p>
+            </div>
+            
+            <div>
+              <h3 className="text-lg font-medium mb-2">What payment methods do you accept?</h3>
+              <p className="text-gray-700">We accept major credit cards, wire transfers, and PayPal for wholesale orders.</p>
+            </div>
+            
+            <div>
+              <h3 className="text-lg font-medium mb-2">Can I request samples before placing a bulk order?</h3>
+              <p className="text-gray-700">Yes, we offer sample orders for qualified businesses. Sample costs may apply and will be credited toward your first bulk order.</p>
+            </div>
+          </div>
+        </div>
+        
         <div className="bg-white rounded-xl shadow-md p-8">
           <h2 className="text-2xl font-semibold mb-4">Contact Us</h2>
           <p className="text-gray-700 mb-6 leading-relaxed">

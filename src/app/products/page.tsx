@@ -11,6 +11,7 @@ export default function ProductsPage() {
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<ProductCategory | 'All'>('All');
   const [searchQuery, setSearchQuery] = useState('');
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -44,9 +45,15 @@ export default function ProductsPage() {
         product.description.toLowerCase().includes(query)
       );
     }
+    
+    // Filter by price range
+    filtered = filtered.filter(product => 
+      product.priceRange.min >= priceRange[0] && 
+      product.priceRange.max <= priceRange[1]
+    );
 
     setFilteredProducts(filtered);
-  }, [selectedCategory, searchQuery, products]);
+  }, [selectedCategory, searchQuery, priceRange, products]);
 
   const categories: (ProductCategory | 'All')[] = ['All', 'Men', 'Women', 'Kids', 'Unisex'];
 
@@ -56,22 +63,46 @@ export default function ProductsPage() {
         <h1 className="text-3xl font-bold mb-8">Our Products</h1>
 
         {/* Filters */}
-        <div className="mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div className="flex flex-wrap gap-2">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`px-4 py-2 rounded-full border transition-colors text-sm font-medium shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none ${
-                  selectedCategory === category
-                    ? 'bg-blue-600 text-white border-blue-600'
-                    : 'bg-white text-gray-700 border-gray-300 hover:bg-blue-50'
-                }`}
-              >
-                {category}
-              </button>
-            ))}
+        <div className="mb-8 flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+          <div className="flex flex-col gap-4 w-full md:w-auto">
+            <div className="flex flex-wrap gap-2">
+              {categories.map((category) => (
+                <button
+                  key={category}
+                  onClick={() => setSelectedCategory(category)}
+                  className={`px-4 py-2 rounded-full border transition-colors text-sm font-medium shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none ${
+                    selectedCategory === category
+                      ? 'bg-blue-600 text-white border-blue-600'
+                      : 'bg-white text-gray-700 border-gray-300 hover:bg-blue-50'
+                  }`}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+            
+            <div className="bg-white p-4 rounded-lg shadow-sm">
+              <h3 className="text-sm font-medium text-gray-700 mb-2">Price Range (USD)</h3>
+              <div className="flex items-center gap-2">
+                <input
+                  type="number"
+                  min="0"
+                  value={priceRange[0]}
+                  onChange={(e) => setPriceRange([Number(e.target.value), priceRange[1]])}
+                  className="w-24 px-2 py-1 border border-gray-300 rounded text-sm"
+                />
+                <span>to</span>
+                <input
+                  type="number"
+                  min="0"
+                  value={priceRange[1]}
+                  onChange={(e) => setPriceRange([priceRange[0], Number(e.target.value)])}
+                  className="w-24 px-2 py-1 border border-gray-300 rounded text-sm"
+                />
+              </div>
+            </div>
           </div>
+          
           <div className="relative w-full md:w-72">
             <input
               type="text"
@@ -98,4 +129,4 @@ export default function ProductsPage() {
       </div>
     </main>
   );
-} 
+}

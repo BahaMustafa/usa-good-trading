@@ -79,6 +79,84 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Testimonials Section */}
+      <section className="py-16 px-4 bg-white">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-12">What Our Clients Say</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-gray-50 p-6 rounded-xl shadow-sm">
+              <div className="flex items-center mb-4">
+                <div className="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-xl">R</div>
+                <div className="ml-4">
+                  <h3 className="font-semibold">Robert Smith</h3>
+                  <p className="text-sm text-gray-500">Fashion Retailer</p>
+                </div>
+              </div>
+              <p className="text-gray-700">"USA Good Trading has been our go-to supplier for 5 years. Their quality and reliability are unmatched in the industry."</p>
+            </div>
+            <div className="bg-gray-50 p-6 rounded-xl shadow-sm">
+              <div className="flex items-center mb-4">
+                <div className="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-xl">J</div>
+                <div className="ml-4">
+                  <h3 className="font-semibold">Jennifer Lee</h3>
+                  <p className="text-sm text-gray-500">Boutique Owner</p>
+                </div>
+              </div>
+              <p className="text-gray-700">"The product range and competitive pricing have helped my business grow significantly. Highly recommended!"</p>
+            </div>
+            <div className="bg-gray-50 p-6 rounded-xl shadow-sm">
+              <div className="flex items-center mb-4">
+                <div className="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-xl">M</div>
+                <div className="ml-4">
+                  <h3 className="font-semibold">Michael Johnson</h3>
+                  <p className="text-sm text-gray-500">Department Store Manager</p>
+                </div>
+              </div>
+              <p className="text-gray-700">"Their customer service is exceptional. Any issues are resolved quickly, and they always go the extra mile."</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Us Section */}
+      <section className="py-16 px-4 bg-blue-50">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-12">Why Choose USA Good Trading</h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-white p-6 rounded-xl shadow-sm text-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center">
+                <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Quality Assurance</h3>
+              <p className="text-gray-600">All our products undergo rigorous quality checks to ensure they meet our high standards.</p>
+            </div>
+            
+            <div className="bg-white p-6 rounded-xl shadow-sm text-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center">
+                <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Competitive Pricing</h3>
+              <p className="text-gray-600">We offer wholesale prices that help maximize your profit margins.</p>
+            </div>
+            
+            <div className="bg-white p-6 rounded-xl shadow-sm text-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center">
+                <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Dedicated Support</h3>
+              <p className="text-gray-600">Our team is always available to answer your questions and provide assistance.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Featured Products Section */}
       <section className="py-16 px-4 bg-gray-50">
         <div className="max-w-7xl mx-auto">
