@@ -33,8 +33,8 @@ export default function AboutPage() {
           <div className="space-y-6">
             <div>
               <h3 className="text-lg font-medium mb-2">What is the minimum order quantity?</h3>
-              <p className="text-gray-700">Our minimum order quantity varies by product category. Please contact us for specific details about the products you're interested in.</p>
-            </div>
+              <p className="text-gray-700">Please contact us for specific details about the products you&apos;re interested in.</p>
+              </div>
             
             <div>
               <h3 className="text-lg font-medium mb-2">Do you offer international shipping?</h3>
@@ -56,7 +56,7 @@ export default function AboutPage() {
         <div className="bg-white rounded-xl shadow-md p-8">
           <h2 className="text-2xl font-semibold mb-4">Contact Us</h2>
           <p className="text-gray-700 mb-6 leading-relaxed">
-            We're always happy to hear from potential clients and answer any questions you might have about our products or services.
+          We&apos;re always happy to hear from potential clients and answer any questions you might have about our products or services.
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
