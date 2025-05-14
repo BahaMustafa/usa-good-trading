@@ -6,9 +6,8 @@ body {
     @apply bg-white text-gray-800 font-sans antialiased;
   }
   
-
 a {
-  @apply text-blue-600 hover:text-blue-800 transition-colors underline underline-offset-2;
+  @apply text-blue-600 hover:text-blue-800 transition-colors;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -17,4 +16,9 @@ h1, h2, h3, h4, h5, h6 {
 
 input, textarea, select, button {
   @apply focus:outline-none focus:ring-2 focus:ring-blue-500;
+}
+
+/* Add this after your existing 'a' rule */
+nav a {
+  @apply no-underline;
 }

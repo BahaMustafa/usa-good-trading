@@ -1,7 +1,44 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import { collection, getDocs, query, limit, where } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
+import { Product } from '@/types/product';
+import ProductCard from '@/components/ProductCard';
 
 export default function Home() {
+  const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchFeaturedProducts = async () => {
+      try {
+        const productsRef = collection(db, 'products');
+        const q = query(
+          productsRef,
+          where('isSold', '==', false),
+          limit(3)
+        );
+        const snapshot = await getDocs(q);
+        const productsData = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(),
+          createdAt: doc.data().createdAt?.toDate(),
+          updatedAt: doc.data().updatedAt?.toDate(),
+        })) as Product[];
+        
+        setFeaturedProducts(productsData);
+      } catch (error) {
+        console.error('Error fetching featured products:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchFeaturedProducts();
+  }, []);
+
   return (
     <main className="min-h-screen">
       {/* Hero Section */}
@@ -33,6 +70,12 @@ export default function Home() {
             exceptional customer service. We specialize in providing premium 
             clothing at competitive wholesale prices.
           </p>
+          <Link 
+            href="/about" 
+            className="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            Learn More About Us
+          </Link>
         </div>
       </section>
 
@@ -40,11 +83,35 @@ export default function Home() {
       <section className="py-16 px-4 bg-gray-50">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12">Featured Products</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Featured products will be dynamically loaded here */}
-          </div>
+          
+          {loading ? (
+            <div className="flex justify-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-600"></div>
+            </div>
+          ) : (
+            <>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {featuredProducts.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
+              </div>
+              
+              {featuredProducts.length === 0 && (
+                <p className="text-center text-gray-500">No featured products available at the moment.</p>
+              )}
+              
+              <div className="text-center mt-12">
+                <Link
+                  href="/products"
+                  className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  View All Products
+                </Link>
+              </div>
+            </>
+          )}
         </div>
       </section>
     </main>
   );
-} 
+}
