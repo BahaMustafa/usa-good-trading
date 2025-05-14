@@ -29,12 +29,7 @@ export default function ProductForm({ productId }: ProductFormProps) {
     isSold: false,
   });
 
-  useEffect(() => {
-    if (productId) {
-      fetchProduct();
-    }
-  }, [productId, fetchProduct]); // Add fetchProduct to dependency array
-
+  // Move fetchProduct function declaration above the useEffect that uses it
   const fetchProduct = async () => {
     try {
       const docRef = doc(db, 'products', productId!);
@@ -57,6 +52,12 @@ export default function ProductForm({ productId }: ProductFormProps) {
       console.error('Error fetching product:', error);
     }
   };
+
+  useEffect(() => {
+    if (productId) {
+      fetchProduct();
+    }
+  }, [productId]); // Remove fetchProduct from dependency array since it's now defined outside
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
