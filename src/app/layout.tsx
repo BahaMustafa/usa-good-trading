@@ -4,7 +4,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
-import WhatsAppButton from '@/components/WhatsAppButton';
+import AnalyticsProvider from '../components/AnalyticsProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,12 +21,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Navigation />
-        <div className="min-h-screen">
-          {children}
-        </div>
-        <Footer />
-        <WhatsAppButton />
+        <AnalyticsProvider>
+          <Navigation />
+          <div className="min-h-screen pt-20">
+            {children}
+          </div>
+          <Footer />
+        </AnalyticsProvider>
       </body>
     </html>
   );

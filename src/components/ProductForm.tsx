@@ -73,9 +73,9 @@ export default function ProductForm({ productId }: ProductFormProps) {
         formData.append('file', file);
         formData.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!);
 
-        console.log('Uploading to:', `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`);
-        console.log('Upload preset:', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET);
-        console.log('File:', file);
+        // console.log('Uploading to:', `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`);
+        // console.log('Upload preset:', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET);
+        // console.log('File:', file);
 
         const response = await fetch(
           `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
@@ -86,7 +86,7 @@ export default function ProductForm({ productId }: ProductFormProps) {
         );
 
         const data = await response.json();
-        console.log('Cloudinary response:', data);
+        // console.log('Cloudinary response:', data);
         if (data.secure_url) {
           uploadedUrls.push(data.secure_url);
         } else {

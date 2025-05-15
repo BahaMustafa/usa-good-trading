@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { Product } from '@/types/product';
-import { use } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function ProductPage({ params }: { params: Promise<{ id: string }> }) {
