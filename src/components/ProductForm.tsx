@@ -29,35 +29,32 @@ export default function ProductForm({ productId }: ProductFormProps) {
     isSold: false,
   });
 
-  // Move fetchProduct function declaration above the useEffect that uses it
-  const fetchProduct = async () => {
-    try {
-      const docRef = doc(db, 'products', productId!);
-      const docSnap = await getDoc(docRef);
-      
-      if (docSnap.exists()) {
-        const productData = docSnap.data() as Product;
-        setFormData({
-          name: productData.name,
-          description: productData.description,
-          category: productData.category,
-          priceRange: productData.priceRange,
-          sizes: productData.sizes,
-          colors: productData.colors,
-          images: productData.images,
-          isSold: productData.isSold,
-        });
-      }
-    } catch (error) {
-      console.error('Error fetching product:', error);
-    }
-  };
-
   useEffect(() => {
     if (productId) {
+      const fetchProduct = async () => {
+        try {
+          const docRef = doc(db, 'products', productId);
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            const productData = docSnap.data() as Product;
+            setFormData({
+              name: productData.name,
+              description: productData.description,
+              category: productData.category,
+              priceRange: productData.priceRange,
+              sizes: productData.sizes,
+              colors: productData.colors,
+              images: productData.images,
+              isSold: productData.isSold,
+            });
+          }
+        } catch (error) {
+          console.error('Error fetching product:', error);
+        }
+      };
       fetchProduct();
     }
-  }, [productId]); // Remove fetchProduct from dependency array since it's now defined outside
+  }, [productId]);
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;

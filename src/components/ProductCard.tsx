@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { Product } from '@/types/product';
+import Image from 'next/image';
 
 interface ProductCardProps {
   product: Product;
@@ -15,9 +16,11 @@ export default function ProductCard({ product }: ProductCardProps) {
     <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden flex flex-col hover:shadow-lg hover:border-blue-200 transition-all duration-200">
       <Link href={`/product/${product.id}`} className="flex-1 flex flex-col cursor-pointer group">
         <div className="relative w-full aspect-square bg-gray-100">
-          <img
+          <Image
             src={product.images[0]}
             alt={product.name}
+            width={400}
+            height={400}
             className="object-cover w-full h-full group-hover:opacity-90 transition-opacity"
           />
           {product.isSold && (

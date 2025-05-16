@@ -85,7 +85,7 @@ export default function Home() {
       {/* Search Section */}
       <section className="py-12 px-4 bg-white">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-center mb-6">Find What You're Looking For</h2>
+          <h2 className="text-2xl font-bold text-center mb-6">Find What You&apos;re Looking For</h2>
           <SearchBar 
             placeholder="Search for wholesale clothing products..."
             className="max-w-2xl mx-auto"

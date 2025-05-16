@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
@@ -21,13 +21,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AnalyticsProvider>
-          <Navigation />
-          <div className="min-h-screen pt-20">
-            {children}
-          </div>
-          <Footer />
-        </AnalyticsProvider>
+        <Suspense fallback={<div>Loading...</div>}>
+          <AnalyticsProvider>
+            <Navigation />
+            <div className="min-h-screen pt-20">
+              {children}
+            </div>
+            <Footer />
+          </AnalyticsProvider>
+        </Suspense>
       </body>
     </html>
   );

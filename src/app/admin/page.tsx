@@ -9,7 +9,7 @@ export default function AdminPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(''); // Add missing error state
+  const [error, setError] = useState('');
   const router = useRouter();
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function AdminPage() {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       router.push('/admin/dashboard');
-    } catch (error) {
+    } catch {
       setError('Invalid email or password');
     }
   };

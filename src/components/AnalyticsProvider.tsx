@@ -4,7 +4,7 @@ import { createContext, useContext, useEffect, useState, ReactNode } from 'react
 import { usePathname, useSearchParams } from 'next/navigation';
 
 interface AnalyticsContextType {
-  trackEvent: (eventName: string, eventData?: Record<string, any>) => void;
+  trackEvent: (eventName: string, eventData?: Record<string, unknown>) => void;
 }
 
 const AnalyticsContext = createContext<AnalyticsContextType>({
@@ -45,7 +45,7 @@ export default function AnalyticsProvider({ children }: AnalyticsProviderProps) 
   }, [pathname, searchParams, isInitialized]);
 
   // Function to track custom events
-  const trackEvent = (eventName: string, eventData?: Record<string, any>) => {
+  const trackEvent = (eventName: string, eventData?: Record<string, unknown>) => {
     if (!isInitialized) return;
     
     console.log('Event tracked:', eventName, eventData);

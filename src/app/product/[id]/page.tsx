@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use } from 'react';
 import Image from 'next/image';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
@@ -167,4 +167,4 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
       </div>
     </main>
   );
-} 
+}

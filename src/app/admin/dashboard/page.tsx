@@ -5,6 +5,7 @@ import { collection, getDocs, doc, deleteDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { Product } from '@/types/product';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function AdminDashboard() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -92,10 +93,12 @@ export default function AdminDashboard() {
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
                       <div className="h-10 w-10 flex-shrink-0">
-                        <img
+                        <Image
                           className="h-10 w-10 rounded-full object-cover"
                           src={product.images[0]}
                           alt={product.name}
+                          width={40}
+                          height={40}
                         />
                       </div>
                       <div className="ml-4">

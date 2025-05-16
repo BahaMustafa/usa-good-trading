@@ -58,7 +58,7 @@ export default function NewsletterSubscription() {
         
         {status === 'success' && (
           <div className="mt-4 text-center text-sm bg-blue-500 text-white p-2 rounded-lg max-w-md mx-auto">
-            Thank you for subscribing! You'll receive our updates soon.
+            Thank you for subscribing! You&apos;ll receive our updates soon.
           </div>
         )}
         
