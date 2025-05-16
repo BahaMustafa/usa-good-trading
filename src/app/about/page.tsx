@@ -3,14 +3,22 @@ import ContactForm from '@/components/ContactForm';
 export default function AboutPage() {
   return (
     <main className="min-h-screen bg-gray-50 py-12">
-      <div className="max-w-4xl mx-auto px-4">
-        <h1 className="text-3xl font-bold mb-8">About USA Good Trading</h1>
+      <div className="max-w-5xl mx-auto px-4">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">About USA Good Trading</h1>
+          <div className="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
+        </div>
         
-        <div className="bg-white rounded-xl shadow-md p-8 mb-8">
-          <h2 className="text-2xl font-semibold mb-4">Our Story</h2>
+        <div className="bg-white rounded-xl shadow-md p-8 mb-12">
+          <h2 className="text-2xl font-semibold mb-4 text-blue-700">Our Story</h2>
           <p className="text-gray-700 mb-6 leading-relaxed">
-            Founded over 14 years ago, USA Good Trading has established itself as a trusted name in the wholesale clothing industry. 
-            What began as a small family business has grown into a reliable supplier for retailers across the United States.
+            USA Good Trading was founded in 2009 in Los Angeles, California. What began as a small family business importing women's apparel 
+            has grown into a trusted wholesale supplier for retailers across the United States.
+          </p>
+          <p className="text-gray-700 mb-6 leading-relaxed">
+            Our company specializes in importing and distributing high-quality clothing items including t-shirts, jackets, skirts, dresses, 
+            jogger pants, and leggings. With over a decade of experience in the garment trade, we've built strong relationships with manufacturers 
+            that allow us to offer premium products at competitive wholesale prices.
           </p>
           <p className="text-gray-700 mb-6 leading-relaxed">
             Our commitment to quality, competitive pricing, and exceptional customer service has allowed us to build lasting relationships 

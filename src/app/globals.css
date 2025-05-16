@@ -2,23 +2,77 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --primary-color: #3b82f6; /* blue-500 */
+  --secondary-color: #1e40af; /* blue-800 */
+  --accent-color: #ef4444; /* red-500 */
+  --text-color: #1f2937; /* gray-800 */
+  --light-bg: #f9fafb; /* gray-50 */
+}
+
 body {
-    @apply bg-white text-gray-800 font-sans antialiased;
-  }
-  
-a {
-  @apply text-blue-600 hover:text-blue-800 transition-colors;
+  @apply bg-white text-gray-800 antialiased;
+  font-family: var(--font-inter), system-ui, sans-serif;
 }
 
+/* Typography */
 h1, h2, h3, h4, h5, h6 {
-  @apply font-bold;
+  font-family: var(--font-montserrat), var(--font-inter), system-ui, sans-serif;
+  @apply font-bold tracking-tight;
 }
 
-input, textarea, select, button {
-  @apply focus:outline-none focus:ring-2 focus:ring-blue-500;
+h1 {
+  @apply text-4xl md:text-5xl lg:text-6xl;
 }
 
-/* Add this after your existing 'a' rule */
+h2 {
+  @apply text-3xl md:text-4xl;
+}
+
+h3 {
+  @apply text-2xl md:text-3xl;
+}
+
+/* Links */
+a {
+  @apply text-blue-600 hover:text-blue-800 transition-colors duration-200;
+}
+
 nav a {
   @apply no-underline;
+}
+
+/* Form elements */
+input, textarea, select {
+  @apply border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200;
+}
+
+button {
+  @apply focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200;
+}
+
+/* Custom components */
+.btn {
+  @apply inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm font-medium transition-colors duration-200;
+}
+
+.btn-primary {
+  @apply bg-blue-600 text-white hover:bg-blue-700;
+}
+
+.btn-secondary {
+  @apply bg-white text-blue-600 border-blue-600 hover:bg-blue-50;
+}
+
+.card {
+  @apply bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow duration-200;
+}
+
+.section {
+  @apply py-12 md:py-16 lg:py-20;
+}
+
+/* Product specific */
+.product-grid {
+  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6;
 }

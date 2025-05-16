@@ -31,27 +31,27 @@ export default function ProductForm({ productId }: ProductFormProps) {
 
   useEffect(() => {
     if (productId) {
-      const fetchProduct = async () => {
-        try {
+  const fetchProduct = async () => {
+    try {
           const docRef = doc(db, 'products', productId);
-          const docSnap = await getDoc(docRef);
-          if (docSnap.exists()) {
-            const productData = docSnap.data() as Product;
-            setFormData({
-              name: productData.name,
-              description: productData.description,
-              category: productData.category,
-              priceRange: productData.priceRange,
-              sizes: productData.sizes,
-              colors: productData.colors,
-              images: productData.images,
-              isSold: productData.isSold,
-            });
-          }
-        } catch (error) {
-          console.error('Error fetching product:', error);
-        }
-      };
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const productData = docSnap.data() as Product;
+        setFormData({
+          name: productData.name,
+          description: productData.description,
+          category: productData.category,
+          priceRange: productData.priceRange,
+          sizes: productData.sizes,
+          colors: productData.colors,
+          images: productData.images,
+          isSold: productData.isSold,
+        });
+      }
+    } catch (error) {
+      console.error('Error fetching product:', error);
+    }
+  };
       fetchProduct();
     }
   }, [productId]);

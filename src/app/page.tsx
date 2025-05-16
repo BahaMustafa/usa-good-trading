@@ -45,40 +45,89 @@ export default function Home() {
   return (
     <main className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative h-[80vh] bg-gradient-to-r from-red-600 via-white to-blue-600">
-        <div className="absolute inset-0 bg-black/30" />
-        <div className="relative h-full flex flex-col items-center justify-center text-white px-4">
-          <h1 className="text-5xl md:text-7xl font-bold text-center mb-6">
-            USA Good Trading
+      <section className="relative h-[85vh] bg-gradient-to-r from-blue-700 via-white to-red-600 overflow-hidden">
+        <div className="absolute inset-0 bg-black/20" />
+        <div className="absolute inset-0 bg-[url('/hero-pattern.png')] opacity-10" />
+        <div className="relative h-full flex flex-col items-center justify-center text-white px-4 max-w-6xl mx-auto">
+          <h1 className="text-5xl md:text-7xl font-bold text-center mb-6 drop-shadow-md">
+            Premium Wholesale Clothing
           </h1>
-          <p className="text-xl md:text-2xl text-center mb-8">
-            Trusted Wholesale Clothing Supplier for 14+ Years
+          <p className="text-xl md:text-2xl text-center mb-8 max-w-3xl">
+            USA Good Trading - Your trusted wholesale clothing supplier since 2009
           </p>
-          <Link
-            href="/products"
-            className="bg-white text-blue-600 px-8 py-3 rounded-full font-semibold hover:bg-blue-50 transition-colors"
-          >
-            View Products
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-4 mt-4">
+            <Link
+              href="/products"
+              className="btn btn-primary px-8 py-3 rounded-full font-semibold text-lg shadow-lg hover:shadow-xl"
+            >
+              Browse Products
+            </Link>
+            <Link
+              href="/about"
+              className="btn btn-secondary px-8 py-3 rounded-full font-semibold text-lg shadow-sm hover:shadow"
+            >
+              Our Story
+            </Link>
+          </div>
         </div>
       </section>
 
       {/* About Section */}
-      <section className="py-16 px-4 bg-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-6">About Us</h2>
-          <p className="text-lg text-gray-600 mb-8">
-            With over 14 years of experience in the wholesale clothing industry, 
-            USA Good Trading has built a reputation for quality, reliability, and 
-            exceptional customer service. We specialize in providing premium 
-            clothing at competitive wholesale prices.
-          </p>
-          <Link 
-            href="/about" 
-            className="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-          >
-            Learn More About Us
-          </Link>
+      <section className="section bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">About USA Good Trading</h2>
+            <div className="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h3 className="text-2xl font-semibold mb-4">Our Story</h3>
+              <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+                Founded in 2009 in Los Angeles, California, USA Good Trading has grown into a trusted name in the wholesale clothing industry. 
+                We specialize in providing premium quality apparel for retailers and businesses at competitive wholesale prices.
+              </p>
+              <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+                Our commitment to quality, reliability, and exceptional customer service has allowed us to build lasting relationships 
+                with our clients for over a decade.
+              </p>
+              <Link 
+                href="/about" 
+                className="btn btn-primary inline-block px-6 py-3 rounded-md"
+              >
+                Learn More About Us
+              </Link>
+            </div>
+            <div className="bg-gray-100 p-8 rounded-xl shadow-sm">
+              <h3 className="text-xl font-semibold mb-4 text-blue-700">Why Choose Us?</h3>
+              <ul className="space-y-4">
+                <li className="flex items-start">
+                  <svg className="w-5 h-5 text-blue-600 mt-1 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700"><span className="font-medium">Premium Quality:</span> Carefully sourced materials and strict quality control</span>
+                </li>
+                <li className="flex items-start">
+                  <svg className="w-5 h-5 text-blue-600 mt-1 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700"><span className="font-medium">Competitive Pricing:</span> Wholesale rates that maximize your profit margins</span>
+                </li>
+                <li className="flex items-start">
+                  <svg className="w-5 h-5 text-blue-600 mt-1 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700"><span className="font-medium">Diverse Selection:</span> Wide range of styles, sizes, and categories</span>
+                </li>
+                <li className="flex items-start">
+                  <svg className="w-5 h-5 text-blue-600 mt-1 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700"><span className="font-medium">Reliable Service:</span> Fast shipping and responsive customer support</span>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -95,9 +144,15 @@ export default function Home() {
       </section>
       
       {/* Featured Products Section */}
-      <section className="py-16 px-4 bg-blue-50">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">Featured Products</h2>
+      <section className="section bg-gray-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Featured Products</h2>
+            <div className="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Explore our selection of premium wholesale clothing items, carefully curated for quality and style
+            </p>
+          </div>
           
           {loading ? (
             <div className="flex justify-center">
