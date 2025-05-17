@@ -55,8 +55,8 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
     );
   }
 
-  const whatsappMessage = `Hi, I'm interested in the ${product.name} — is it available?`;
-  const whatsappUrl = `https://wa.me/19096876383?text=${encodeURIComponent(whatsappMessage)}`;
+  // Using WhatsApp group chat link instead of direct phone number
+  const whatsappUrl = `https://chat.whatsapp.com/EaX8DUbNYDeLDfwqUdggtF`;
 
   return (
     <main className="min-h-screen bg-gray-50 py-8">

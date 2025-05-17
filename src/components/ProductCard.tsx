@@ -9,8 +9,8 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
-  const whatsappMessage = `Hi, I'm interested in the ${product.name} — is it available?`;
-  const whatsappUrl = `https://wa.me/19096876383?text=${encodeURIComponent(whatsappMessage)}`;
+  // Using WhatsApp group chat link instead of direct phone number
+  const whatsappUrl = `https://chat.whatsapp.com/EaX8DUbNYDeLDfwqUdggtF`;
 
   return (
     <div className="group overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm hover:shadow-md transition-all duration-300 hover:border-blue-300 flex flex-col h-full">
