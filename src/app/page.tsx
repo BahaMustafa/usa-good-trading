@@ -4,24 +4,27 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { collection, getDocs, query, limit, where } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
-import { Product } from '@/types/product';
+import { Product, ProductCategory } from '@/types/product';
 import ProductCard from '@/components/ProductCard';
 import Testimonials from '@/components/Testimonials';
 import NewsletterSubscription from '@/components/NewsletterSubscription';
 import SearchBar from '@/components/SearchBar';
+import HeroSlider from '@/components/HeroSlider';
 
 export default function Home() {
-  const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<ProductCategory | 'All'>('All');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchFeaturedProducts = async () => {
+    const fetchProducts = async () => {
       try {
         const productsRef = collection(db, 'products');
         const q = query(
           productsRef,
           where('isSold', '==', false),
-          limit(3)
+          limit(8)
         );
         const snapshot = await getDocs(q);
         const productsData = snapshot.docs.map(doc => ({
@@ -31,47 +34,100 @@ export default function Home() {
           updatedAt: doc.data().updatedAt?.toDate(),
         })) as Product[];
         
-        setFeaturedProducts(productsData);
+        setProducts(productsData);
+        setFilteredProducts(productsData);
       } catch (error) {
-        console.error('Error fetching featured products:', error);
+        console.error('Error fetching products:', error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchFeaturedProducts();
+    fetchProducts();
   }, []);
+  
+  useEffect(() => {
+    if (selectedCategory === 'All') {
+      setFilteredProducts(products);
+    } else {
+      const filtered = products.filter(product => product.category === selectedCategory);
+      setFilteredProducts(filtered);
+    }
+  }, [selectedCategory, products]);
+  
+  const categories: (ProductCategory | 'All')[] = ['All', 'LEGGINGS', 'TOPS', 'JACKET', 'PANTS & SHORTS', 'DRESS & SKIRT', 'SKIRT PLUS SIZE', 'SKIRT ONE SIZE', 'DRESS', 'ROMPER & BODYSUIT', 'SALE'];
 
   return (
     <main className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative h-[85vh] bg-gradient-to-r from-blue-700 via-white to-red-600 overflow-hidden">
-        <div className="absolute inset-0 bg-black/20" />
-        <div className="absolute inset-0 bg-[url('/hero-pattern.png')] opacity-10" />
-        <div className="relative h-full flex flex-col items-center justify-center text-white px-4 max-w-6xl mx-auto">
-          <h1 className="text-5xl md:text-7xl font-bold text-center mb-6 drop-shadow-md">
-            Premium Wholesale Clothing
-          </h1>
-          <p className="text-xl md:text-2xl text-center mb-8 max-w-3xl">
-            USA Good Trading - Your trusted wholesale clothing supplier since 2009
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 mt-4">
-            <Link
-              href="/products"
-              className="btn btn-primary px-8 py-3 rounded-full font-semibold text-lg shadow-lg hover:shadow-xl"
+      {/* Hero Slider Section */}
+      <HeroSlider />
+
+      {/* New Products Section */}
+      <section className="py-16 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">New Products</h2>
+            <div className="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Explore our latest wholesale clothing items, carefully selected for quality and style
+            </p>
+          </div>
+          
+          {/* Category Filter */}
+          <div className="mb-8 flex justify-center">
+            <div className="w-full max-w-xs">
+              <select
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value as ProductCategory | 'All')}
+                className="w-full px-4 py-2 rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 focus:outline-none text-sm font-medium"
+              >
+                {categories.map((category) => (
+                  <option key={category} value={category}>
+                    {category}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          
+          {/* Products Grid */}
+          {loading ? (
+            <div className="flex justify-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-600"></div>
+            </div>
+          ) : filteredProducts.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+              {filteredProducts.map(product => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          ) : (
+            <p className="text-center text-gray-600">No products available in this category at the moment.</p>
+          )}
+          
+          <div className="text-center mt-12">
+            <Link 
+              href="/products" 
+              className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
             >
-              Browse Products
-            </Link>
-            <Link
-              href="/about"
-              className="btn btn-secondary px-8 py-3 rounded-full font-semibold text-lg shadow-sm hover:shadow"
-            >
-              Our Story
+              View All Products
             </Link>
           </div>
         </div>
       </section>
 
+      {/* Search Section */}
+      <section className="py-12 px-4 bg-gray-50">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl font-bold text-center mb-6">Find What You&apos;re Looking For</h2>
+          <SearchBar 
+            placeholder="Search for wholesale clothing products..."
+            className="max-w-2xl mx-auto"
+            redirectToResults={true}
+          />
+        </div>
+      </section>
+      
       {/* About Section */}
       <section className="section bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -130,57 +186,9 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* Search Section */}
-      <section className="py-12 px-4 bg-white">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-center mb-6">Find What You&apos;re Looking For</h2>
-          <SearchBar 
-            placeholder="Search for wholesale clothing products..."
-            className="max-w-2xl mx-auto"
-            redirectToResults={true}
-          />
-        </div>
-      </section>
       
-      {/* Featured Products Section */}
-      <section className="section bg-gray-50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Featured Products</h2>
-            <div className="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Explore our selection of premium wholesale clothing items, carefully curated for quality and style
-            </p>
-          </div>
-          
-          {loading ? (
-            <div className="flex justify-center">
-              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-600"></div>
-            </div>
-          ) : featuredProducts.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {featuredProducts.map(product => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
-          ) : (
-            <p className="text-center text-gray-600">No featured products available at the moment.</p>
-          )}
-          
-          <div className="text-center mt-12">
-            <Link 
-              href="/products" 
-              className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              View All Products
-            </Link>
-          </div>
-        </div>
-      </section>
-
       {/* Why Choose Us Section */}
-      <section className="py-16 px-4 bg-white">
+      <section className="py-16 px-4 bg-gray-50">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12">Why Choose Us</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

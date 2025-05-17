@@ -1,4 +1,4 @@
-export type ProductCategory = 'Men' | 'Women' | 'Kids' | 'Unisex';
+export type ProductCategory = 'LEGGINGS' | 'TOPS' | 'JACKET' | 'PANTS & SHORTS' | 'DRESS & SKIRT' | 'SKIRT PLUS SIZE' | 'SKIRT ONE SIZE' | 'DRESS' | 'ROMPER & BODYSUIT' | 'SALE';
 
 export interface PriceRange {
   min: number;

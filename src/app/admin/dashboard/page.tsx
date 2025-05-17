@@ -58,12 +58,20 @@ export default function AdminDashboard() {
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold">Admin Dashboard</h1>
-          <Link
-            href="/admin/products/new"
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
-          >
-            Add New Product
-          </Link>
+          <div className="flex space-x-4">
+            <Link
+              href="/admin/sliders"
+              className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
+            >
+              Manage Sliders
+            </Link>
+            <Link
+              href="/admin/products/new"
+              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+            >
+              Add New Product
+            </Link>
+          </div>
         </div>
 
         <div className="bg-white rounded-lg shadow overflow-hidden">
@@ -149,4 +157,4 @@ export default function AdminDashboard() {
       </div>
     </div>
   );
-} 
+}

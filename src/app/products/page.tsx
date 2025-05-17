@@ -55,7 +55,7 @@ export default function ProductsPage() {
     setFilteredProducts(filtered);
   }, [selectedCategory, searchQuery, priceRange, products]);
 
-  const categories: (ProductCategory | 'All')[] = ['All', 'Men', 'Women', 'Kids', 'Unisex'];
+  const categories: (ProductCategory | 'All')[] = ['All', 'LEGGINGS', 'TOPS', 'JACKET', 'PANTS & SHORTS', 'DRESS & SKIRT', 'SKIRT PLUS SIZE', 'SKIRT ONE SIZE', 'DRESS', 'ROMPER & BODYSUIT', 'SALE'];
 
   return (
     <main className="min-h-screen bg-gray-50 py-8">
@@ -65,20 +65,20 @@ export default function ProductsPage() {
         {/* Filters */}
         <div className="mb-8 flex flex-col md:flex-row md:items-start md:justify-between gap-4">
           <div className="flex flex-col gap-4 w-full md:w-auto">
-            <div className="flex flex-wrap gap-2">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
-                  className={`px-4 py-2 rounded-full border transition-colors text-sm font-medium shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none ${
-                    selectedCategory === category
-                      ? 'bg-blue-600 text-white border-blue-600'
-                      : 'bg-white text-gray-700 border-gray-300 hover:bg-blue-50'
-                  }`}
-                >
-                  {category}
-                </button>
-              ))}
+            <div className="w-full md:w-64">
+              <label htmlFor="category-select" className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+              <select
+                id="category-select"
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value as ProductCategory | 'All')}
+                className="w-full px-3 py-2 rounded-md border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 focus:outline-none"
+              >
+                {categories.map((category) => (
+                  <option key={category} value={category}>
+                    {category}
+                  </option>
+                ))}
+              </select>
             </div>
             
             <div className="bg-white p-4 rounded-lg shadow-sm">

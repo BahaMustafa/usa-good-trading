@@ -18,7 +18,7 @@ export default function ProductForm({ productId }: ProductFormProps) {
   const [formData, setFormData] = useState({
     name: '',
     description: '',
-    category: 'Men' as ProductCategory,
+    category: 'LEGGINGS' as ProductCategory,
     priceRange: {
       min: 0,
       max: 0,
@@ -184,13 +184,18 @@ export default function ProductForm({ productId }: ProductFormProps) {
         <select
           required
           value={formData.category}
-          onChange={(e) => setFormData(prev => ({ ...prev, category: e.target.value as ProductCategory }))}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          onChange={(e) => setFormData(prev => ({ ...prev, category: e.target.value as ProductCategory }))}          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
         >
-          <option value="Men">Men</option>
-          <option value="Women">Women</option>
-          <option value="Kids">Kids</option>
-          <option value="Unisex">Unisex</option>
+          <option value="LEGGINGS">LEGGINGS</option>
+          <option value="TOPS">TOPS</option>
+          <option value="JACKET">JACKET</option>
+          <option value="PANTS & SHORTS">PANTS & SHORTS</option>
+          <option value="DRESS & SKIRT">DRESS & SKIRT</option>
+          <option value="SKIRT PLUS SIZE">SKIRT PLUS SIZE</option>
+          <option value="SKIRT ONE SIZE">SKIRT ONE SIZE</option>
+          <option value="DRESS">DRESS</option>
+          <option value="ROMPER & BODYSUIT">ROMPER & BODYSUIT</option>
+          <option value="SALE">SALE</option>
         </select>
       </div>
 
