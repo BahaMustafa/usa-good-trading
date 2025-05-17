@@ -12,12 +12,12 @@ export default function AboutPage() {
         <div className="bg-white rounded-xl shadow-md p-8 mb-12">
           <h2 className="text-2xl font-semibold mb-4 text-blue-700">Our Story</h2>
           <p className="text-gray-700 mb-6 leading-relaxed">
-            USA Good Trading was founded in 2009 in Los Angeles, California. What began as a small family business importing women's apparel 
+            USA Good Trading was founded in 2009 in Los Angeles, California. What began as a small family business importing women&apos;s apparel 
             has grown into a trusted wholesale supplier for retailers across the United States.
           </p>
           <p className="text-gray-700 mb-6 leading-relaxed">
             Our company specializes in importing and distributing high-quality clothing items including t-shirts, jackets, skirts, dresses, 
-            jogger pants, and leggings. With over a decade of experience in the garment trade, we've built strong relationships with manufacturers 
+            jogger pants, and leggings. With over a decade of experience in the garment trade, we&apos;ve built strong relationships with manufacturers 
             that allow us to offer premium products at competitive wholesale prices.
           </p>
           <p className="text-gray-700 mb-6 leading-relaxed">
