@@ -85,8 +85,7 @@ export default function Testimonials() {
                       <p className="text-sm text-gray-500">{new Date(testimonial.createdAt).toLocaleDateString()}</p>
                     </div>
                   </div>
-                  <p className="text-gray-700">\"{
-testimonial.message}\"</p>
+                  <p className="text-gray-700">&quot;{testimonial.message}&quot;</p>
                 </div>
               ))}
             </div>

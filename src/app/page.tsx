@@ -157,7 +157,7 @@ export default function Home() {
             <div>
               <h3 className="text-2xl font-semibold mb-4">Our Story</h3>
               <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                We're a small LA-based team with 20+ years of experience buying from the Fashion District. Every piece you see here is hand-picked and available for fast shipping.
+                We&apos;re a small LA-based team with 20+ years of experience buying from the Fashion District. Every piece you see here is hand-picked and available for fast shipping.
                 We specialize in providing premium quality apparel for retailers and businesses at competitive wholesale prices.
               </p>
               <p className="text-lg text-gray-600 mb-6 leading-relaxed">

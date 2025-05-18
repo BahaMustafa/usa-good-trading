@@ -12,11 +12,11 @@ export default function AboutPage() {
         <div className="bg-white rounded-xl shadow-md p-8 mb-12">
           <h2 className="text-2xl font-semibold mb-4 text-blue-700">Our Story</h2>
           <p className="text-gray-700 mb-6 leading-relaxed">
-            We're a small LA-based team with 20+ years of experience buying from the Fashion District. Every piece you see here is hand-picked and available for fast shipping.
+            We&apos;re a small LA-based team with 20+ years of experience buying from the Fashion District. Every piece you see here is hand-picked and available for fast shipping.
           </p>
           <p className="text-gray-700 mb-6 leading-relaxed">
             Our team specializes in importing and distributing high-quality clothing items including t-shirts, jackets, skirts, dresses, 
-            jogger pants, and leggings. With our decades of experience in the garment trade, we've built strong relationships with manufacturers 
+            jogger pants, and leggings. With our decades of experience in the garment trade, we&apos;ve built strong relationships with manufacturers 
             that allow us to offer you premium products at competitive wholesale prices.
           </p>
           <p className="text-gray-700 mb-6 leading-relaxed">
