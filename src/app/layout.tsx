@@ -8,6 +8,19 @@ import Footer from '@/components/Footer';
 export const metadata = {
   title: 'USA Good Trading',
   description: 'Premium wholesale clothing supplier since 2009',
+  keywords: 'wholesale clothing, leggings, tops, jackets, dresses, fashion, USA, wholesale supplier',
+  authors: [{ name: 'USA Good Trading' }],
+  creator: 'USA Good Trading',
+  publisher: 'USA Good Trading',
+  formatDetection: {
+    email: false,
+    telephone: false,
+    address: false,
+  },
+  metadataBase: new URL('https://www.your-domain.com'),
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
     title: 'USA Good Trading',
     description: 'Premium wholesale clothing supplier since 2009',
