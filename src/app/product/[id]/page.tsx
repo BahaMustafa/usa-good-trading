@@ -68,23 +68,26 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
           ← Go Back
         </button>
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 p-4 sm:p-8">
             {/* Image Gallery */}
             <div className="space-y-4">
-              <div className="relative aspect-square">
+              <div className="relative aspect-square overflow-hidden rounded-xl shadow-md">
                 <Image
                   src={product.images[selectedImage]}
                   alt={product.name}
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
                   priority
-                  className="object-cover rounded-xl shadow-md"
+                  className="object-cover w-full h-full"
                 />
                 {product.isSold && (
-                  <span className="absolute top-4 right-4 bg-red-600 text-white px-4 py-2 rounded-full font-semibold shadow-lg text-sm">Sold</span>
+                  <>
+                    <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+                    <span className="absolute top-4 right-4 bg-red-600 text-white px-4 py-2 rounded-full font-semibold shadow-lg text-sm z-10">Sold</span>
+                  </>
                 )}
               </div>
-              <div className="grid grid-cols-4 gap-4">
+              <div className="grid grid-cols-4 sm:grid-cols-4 gap-2 sm:gap-4">
                 {product.images.map((image, index) => (
                   <button
                     key={index}
@@ -93,33 +96,35 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                       selectedImage === index ? 'ring-2 ring-blue-600 border-blue-400' : 'border-gray-200 hover:border-blue-300'
                     }`}
                   >
-                    <Image
-                      src={image}
-                      alt={`${product.name} - Image ${index + 1}`}
-                      fill
-                      sizes="64px"
-                      className="object-cover"
-                    />
+                    <div className="w-full h-full">
+                      <Image
+                        src={image}
+                        alt={`${product.name} - Image ${index + 1}`}
+                        fill
+                        sizes="(max-width: 640px) 25vw, 64px"
+                        className="object-cover w-full h-full"
+                      />
+                    </div>
                   </button>
                 ))}
               </div>
             </div>
             {/* Product Info */}
             <div className="space-y-6">
-              <div className="flex items-center gap-3 mb-2">
-                <h1 className="text-3xl font-bold">{product.name}</h1>
+              <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-3">
+                <h1 className="text-2xl sm:text-3xl font-bold w-full sm:w-auto">{product.name}</h1>
                 <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">{product.category}</span>
                 {product.isSold && (
                   <span className="px-3 py-1 bg-red-600 text-white rounded-full text-xs font-semibold">Sold</span>
                 )}
               </div>
               <p className="text-2xl text-blue-600 font-semibold mb-2">
-                ${product.priceRange.min} - ${product.priceRange.max}
+                {product.priceRange.min === 0 ? "Contact for price" : `$${product.priceRange.min}${product.priceRange.max > product.priceRange.min ? ` - $${product.priceRange.max}` : ''}`}
               </p>
               <div className="border-t border-gray-200 my-4"></div>
               <div>
                 <h2 className="text-lg font-semibold mb-2">Description</h2>
-                <p className="text-gray-600 leading-relaxed">{product.description}</p>
+                <p className="text-gray-600 leading-relaxed text-sm sm:text-base">{product.description}</p>
               </div>
               <div className="border-t border-gray-200 my-4"></div>
               <div>
@@ -153,7 +158,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block w-full bg-green-500 text-white text-center py-3 rounded-lg font-semibold hover:bg-green-600 transition-colors mt-6 shadow-md text-lg"
+                className="block w-full bg-green-500 text-white text-center py-3 sm:py-4 rounded-lg font-semibold hover:bg-green-600 transition-colors mt-6 shadow-md text-base sm:text-lg"
                 aria-label={`Request info about ${product.name} on WhatsApp`}
               >
                 <span className="inline-flex items-center gap-2 justify-center">

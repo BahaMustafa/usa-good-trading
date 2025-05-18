@@ -45,7 +45,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           
           {/* Price Range */}
           <div className="text-blue-700 font-bold text-lg mt-1">
-            ${product.priceRange.min}{product.priceRange.max > product.priceRange.min && ` - $${product.priceRange.max}`}
+            {product.priceRange.min === 0 ? "Contact for price" : `$${product.priceRange.min}${product.priceRange.max > product.priceRange.min ? ` - $${product.priceRange.max}` : ''}`}
           </div>
           
           {/* Sizes */}

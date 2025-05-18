@@ -1,18 +1,24 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { collection, getDocs, doc, deleteDoc } from 'firebase/firestore';
+import { collection, getDocs, doc, deleteDoc, query, orderBy } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { Product } from '@/types/product';
+import { Testimonial } from '@/types/testimonial';
 import Link from 'next/link';
 import Image from 'next/image';
+import TestimonialForm from '@/components/TestimonialForm';
 
 export default function AdminDashboard() {
   const [products, setProducts] = useState<Product[]>([]);
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showTestimonialModal, setShowTestimonialModal] = useState(false);
+  const [editingTestimonial, setEditingTestimonial] = useState<Testimonial | null>(null);
 
   useEffect(() => {
     fetchProducts();
+    fetchTestimonials();
   }, []);
 
   const fetchProducts = async () => {
@@ -34,7 +40,25 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleDelete = async (productId: string) => {
+  const fetchTestimonials = async () => {
+    try {
+      const testimonialsRef = collection(db, 'testimonials');
+      const q = query(testimonialsRef, orderBy('createdAt', 'desc'));
+      const snapshot = await getDocs(q);
+      const testimonialsData = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+        createdAt: doc.data().createdAt?.toDate(),
+        updatedAt: doc.data().updatedAt?.toDate(),
+      })) as Testimonial[];
+      
+      setTestimonials(testimonialsData);
+    } catch (error) {
+      console.error('Error fetching testimonials:', error);
+    }
+  };
+
+  const handleDeleteProduct = async (productId: string) => {
     if (window.confirm('Are you sure you want to delete this product?')) {
       try {
         await deleteDoc(doc(db, 'products', productId));
@@ -43,6 +67,28 @@ export default function AdminDashboard() {
         console.error('Error deleting product:', error);
       }
     }
+  };
+
+  const handleDeleteTestimonial = async (testimonialId: string) => {
+    if (window.confirm('Are you sure you want to delete this testimonial?')) {
+      try {
+        await deleteDoc(doc(db, 'testimonials', testimonialId));
+        await fetchTestimonials();
+      } catch (error) {
+        console.error('Error deleting testimonial:', error);
+      }
+    }
+  };
+
+  const handleEditTestimonial = (testimonial: Testimonial) => {
+    setEditingTestimonial(testimonial);
+    setShowTestimonialModal(true);
+  };
+
+  const closeTestimonialModal = () => {
+    setShowTestimonialModal(false);
+    setEditingTestimonial(null);
+    fetchTestimonials();
   };
 
   if (loading) {
@@ -71,6 +117,12 @@ export default function AdminDashboard() {
             >
               Add New Product
             </Link>
+            <button
+              onClick={() => setShowTestimonialModal(true)}
+              className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700"
+            >
+              Add Testimonial
+            </button>
           </div>
         </div>
 
@@ -143,9 +195,9 @@ export default function AdminDashboard() {
                       Edit
                     </Link>
                     <button
-                      onClick={() => handleDelete(product.id)}
-                      className="text-red-600 hover:text-red-900"
-                    >
+                        onClick={() => handleDeleteProduct(product.id)}
+                        className="text-red-600 hover:text-red-800"
+                      >
                       Delete
                     </button>
                   </td>
@@ -154,7 +206,97 @@ export default function AdminDashboard() {
             </tbody>
           </table>
         </div>
+
+        {/* Testimonials Management Section */}
+        <div className="mt-12">
+          <h2 className="text-2xl font-bold mb-6">Manage Testimonials</h2>
+          <div className="bg-white rounded-lg shadow overflow-hidden">
+            {testimonials.length === 0 ? (
+              <div className="p-6 text-center text-gray-500">
+                No testimonials yet. Add your first testimonial!
+              </div>
+            ) : (
+              <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Customer Name
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Message
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Date
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Actions
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                  {testimonials.map((testimonial) => (
+                    <tr key={testimonial.id}>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm font-medium text-gray-900">{testimonial.name}</div>
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="text-sm text-gray-500 truncate max-w-xs">{testimonial.message}</div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm text-gray-500">
+                          {new Date(testimonial.createdAt).toLocaleDateString()}
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <div className="flex space-x-3">
+                          <button
+                            onClick={() => handleEditTestimonial(testimonial)}
+                            className="text-blue-600 hover:text-blue-800"
+                          >
+                            Edit
+                          </button>
+                          <button
+                            onClick={() => handleDeleteTestimonial(testimonial.id)}
+                            className="text-red-600 hover:text-red-800"
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
+        </div>
       </div>
+
+      {/* Testimonial Modal */}
+      {showTestimonialModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 w-full max-w-md">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-xl font-bold">
+                {editingTestimonial ? 'Edit Testimonial' : 'Add New Testimonial'}
+              </h3>
+              <button
+                onClick={closeTestimonialModal}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <TestimonialForm
+              testimonialId={editingTestimonial?.id}
+              initialData={editingTestimonial || undefined}
+              onCancel={closeTestimonialModal}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

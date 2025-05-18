@@ -62,6 +62,23 @@ export default function Home() {
       {/* Hero Slider Section */}
       <HeroSlider />
 
+      {/* WhatsApp Group CTA */}
+      <section className="py-6 bg-green-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4">
+            <div className="text-lg font-medium text-green-800">Join our WhatsApp group for exclusive deals and updates!</div>
+            <a
+              href="https://chat.whatsapp.com/EaX8DUbNYDeLDfwqUdggtF"
+              target="_blank"
+              className="bg-green-500 text-white px-6 py-3 rounded hover:bg-green-600 inline-flex items-center gap-2 font-medium shadow-md"
+            >
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.7 14.2c-.3-.2-1.7-.8-2-1-.3-.1-.5-.2-.7.2-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.2-.4-2.2-1.3-.8-.7-1.3-1.6-1.5-1.9-.2-.3 0-.4.1-.6.1-.1.2-.3.3-.4.1-.1.1-.2.2-.3.1-.1.1-.2.2-.3.1-.2.1-.4 0-.6-.1-.2-.7-1.7-.9-2.3-.2-.6-.4-.5-.7-.5h-.6c-.2 0-.5.1-.7.3-.2.2-.8.8-.8 2 0 1.2.8 2.4 1.1 2.7.3.3 2.2 3.4 5.3 4.2.7.2 1.2.3 1.6.2.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2-.1-.1-.3-.2-.6-.4z"/></svg>
+              Join Our WhatsApp Group
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* New Products Section */}
       <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -140,7 +157,7 @@ export default function Home() {
             <div>
               <h3 className="text-2xl font-semibold mb-4">Our Story</h3>
               <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                Founded in 2009 in Los Angeles, California, USA Good Trading has grown into a trusted name in the wholesale clothing industry. 
+                We're a small LA-based team with 20+ years of experience buying from the Fashion District. Every piece you see here is hand-picked and available for fast shipping.
                 We specialize in providing premium quality apparel for retailers and businesses at competitive wholesale prices.
               </p>
               <p className="text-lg text-gray-600 mb-6 leading-relaxed">
