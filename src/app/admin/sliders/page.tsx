@@ -1,7 +1,14 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { collection, getDocs, doc, deleteDoc, query, orderBy } from 'firebase/firestore';
+import {
+  collection,
+  getDocs,
+  doc,
+  deleteDoc,
+  query,
+  orderBy,
+} from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { SliderImage } from '@/types/slider';
 import Link from 'next/link';
@@ -17,39 +24,43 @@ export default function AdminSliders() {
 
   const fetchSliderImages = async () => {
     try {
+      setLoading(true);
       const slidersRef = collection(db, 'sliderImages');
       const q = query(slidersRef, orderBy('order', 'asc'));
       const snapshot = await getDocs(q);
-      const slidersData = snapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data(),
-        createdAt: doc.data().createdAt?.toDate(),
-        updatedAt: doc.data().updatedAt?.toDate(),
+      const data = snapshot.docs.map((d) => ({
+        id: d.id,
+        ...d.data(),
+        createdAt: d.data().createdAt?.toDate(),
+        updatedAt: d.data().updatedAt?.toDate(),
       })) as SliderImage[];
-      
-      setSliderImages(slidersData);
-    } catch (error) {
-      console.error('Error fetching slider images:', error);
+      setSliderImages(data);
+    } catch (err) {
+      console.error('Error fetching slider images:', err);
     } finally {
       setLoading(false);
     }
   };
 
   const handleDelete = async (sliderId: string) => {
-    if (window.confirm('Are you sure you want to delete this slider image?')) {
-      try {
-        await deleteDoc(doc(db, 'sliderImages', sliderId));
-        await fetchSliderImages();
-      } catch (error) {
-        console.error('Error deleting slider image:', error);
-      }
+    if (
+      !window.confirm(
+        'Are you sure you want to delete this slider image?'
+      )
+    )
+      return;
+    try {
+      await deleteDoc(doc(db, 'sliderImages', sliderId));
+      fetchSliderImages();
+    } catch (err) {
+      console.error('Error deleting slider image:', err);
     }
   };
 
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600" />
       </div>
     );
   }
@@ -69,7 +80,10 @@ export default function AdminSliders() {
 
         {sliderImages.length === 0 ? (
           <div className="bg-white rounded-lg shadow p-8 text-center">
-            <p className="text-gray-600 mb-4">No slider images found. Add your first slider image to enhance your homepage.</p>
+            <p className="text-gray-600 mb-4">
+              No slider images found. Add your first slider image to
+              enhance your homepage.
+            </p>
             <Link
               href="/admin/sliders/new"
               className="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
@@ -82,41 +96,41 @@ export default function AdminSliders() {
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Image
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Title
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Order
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Actions
-                  </th>
+                  {['Image', 'Title', 'Order', 'Actions'].map((h) => (
+                    <th
+                      key={h}
+                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      {h}
+                    </th>
+                  ))}
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {sliderImages.map((slider) => (
                   <tr key={slider.id}>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="flex items-center">
-                        <div className="h-16 w-24 flex-shrink-0 relative">
-                          <Image
-                            className="h-16 w-24 object-cover rounded"
-                            src={slider.imageUrl}
-                            alt={slider.title || 'Slider image'}
-                            fill
-                          />
-                        </div>
+                      <div className="h-16 w-24 relative">
+                        <Image
+                          src={slider.imageUrl}
+                          alt={slider.title || 'Slider image'}
+                          fill
+                          className="object-cover rounded"
+                        />
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">{slider.title || 'No title'}</div>
-                      <div className="text-sm text-gray-500">{slider.subtitle || 'No subtitle'}</div>
+                      <div className="text-sm font-medium text-gray-900">
+                        {slider.title || 'No title'}
+                      </div>
+                      <div className="text-sm text-gray-500">
+                        {slider.subtitle || 'No subtitle'}
+                      </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{slider.order}</div>
+                      <div className="text-sm text-gray-900">
+                        {slider.order}
+                      </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                       <Link
@@ -140,12 +154,22 @@ export default function AdminSliders() {
         )}
 
         <div className="mt-8 bg-blue-50 p-6 rounded-lg shadow-sm">
-          <h2 className="text-xl font-semibold mb-2">Tips for Hero Slider Images</h2>
+          <h2 className="text-xl font-semibold mb-2">
+            Tips for Hero Slider Images
+          </h2>
           <ul className="list-disc pl-5 space-y-2 text-gray-700">
-            <li>Use high-quality images with a 16:9 aspect ratio for best results</li>
+            <li>
+              Use high-quality images with a 16:9 aspect ratio for best
+              results
+            </li>
             <li>Recommended image size: 1920x1080 pixels</li>
-            <li>Keep text on images minimal and ensure good contrast for readability</li>
-            <li>Set the display order to control the sequence of slider images</li>
+            <li>
+              Keep text on images minimal and ensure good contrast for
+              readability
+            </li>
+            <li>
+              Set the display order to control the sequence of slider images
+            </li>
           </ul>
         </div>
       </div>

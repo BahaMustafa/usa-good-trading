@@ -1,37 +1,45 @@
-import React, { Suspense } from 'react';
-import type { Metadata } from 'next';
-import { Inter, Montserrat } from 'next/font/google';
+// src/app/layout.tsx
 import './globals.css';
-import Navigation from '../components/Navigation';
-import Footer from '../components/Footer';
-import AnalyticsProvider from '../components/AnalyticsProvider';
+import { ReactNode } from 'react';
+import Navigation from '@/components/Navigation';
+import AppTransition from '@/components/AppTransition';
+import Footer from '@/components/Footer';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
-const montserrat = Montserrat({ subsets: ['latin'], variable: '--font-montserrat' });
-
-export const metadata: Metadata = {
-  title: 'USA Good Trading - Wholesale Clothing Supplier',
-  description: 'USA Good Trading - A trusted wholesale clothing supplier since 2009, specializing in premium quality apparel for retailers and businesses.',
-  keywords: 'wholesale clothing, bulk apparel, fashion wholesale, USA Good Trading, clothing supplier',
+export const metadata = {
+  title: 'USA Good Trading',
+  description: 'Premium wholesale clothing supplier since 2009',
+  openGraph: {
+    title: 'USA Good Trading',
+    description: 'Premium wholesale clothing supplier since 2009',
+    url: 'https://www.your-domain.com',
+    siteName: 'USA Good Trading',
+    images: [
+      {
+        url: 'https://www.your-domain.com/og-default.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'USA Good Trading logo',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'USA Good Trading',
+    description: 'Premium wholesale clothing supplier since 2009',
+    images: ['https://www.your-domain.com/og-default.jpg'],
+  },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${montserrat.variable} font-sans`}>
-        <Suspense fallback={<div className="flex items-center justify-center min-h-screen">Loading...</div>}>
-          <AnalyticsProvider>
-            <Navigation />
-            <div className="min-h-screen pt-20">
-              {children}
-            </div>
-            <Footer />
-          </AnalyticsProvider>
-        </Suspense>
+      <head />
+      <body className="flex flex-col min-h-screen">
+        <Navigation />
+        <AppTransition>{children}</AppTransition>
+        <Footer />
       </body>
     </html>
   );
