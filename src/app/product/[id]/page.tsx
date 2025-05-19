@@ -2,10 +2,13 @@
 
 import { useState, useEffect, use } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { Product } from '@/types/product';
 import { useRouter } from 'next/navigation';
+import { generateProductJsonLd, generateBreadcrumbJsonLd } from '@/lib/metadata';
+import Script from 'next/script';
 
 export default function ProductPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
@@ -58,9 +61,57 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
   // Using WhatsApp group chat link instead of direct phone number
   const whatsappUrl = `https://chat.whatsapp.com/EaX8DUbNYDeLDfwqUdggtF`;
 
+  // Generate structured data for the product
+  const productJsonLd = generateProductJsonLd(product);
+  
+  // Generate breadcrumb structured data
+  const breadcrumbItems = [
+    { name: 'Home', url: '/' },
+    { name: 'Products', url: '/products' },
+    { name: product.name, url: `/product/${product.id}` },
+  ];
+  const breadcrumbJsonLd = generateBreadcrumbJsonLd(breadcrumbItems);
+
   return (
     <main className="min-h-screen bg-gray-50 py-8">
+      {/* Add JSON-LD structured data */}
+      <Script
+        id="product-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
+      <Script
+        id="breadcrumb-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      
       <div className="max-w-4xl mx-auto px-4">
+        {/* Breadcrumb navigation */}
+        <nav className="flex mb-4 text-sm" aria-label="Breadcrumb">
+          <ol className="inline-flex items-center space-x-1 md:space-x-3">
+            <li className="inline-flex items-center">
+              <Link href="/" className="text-gray-500 hover:text-blue-600">
+                Home
+              </Link>
+            </li>
+            <li>
+              <div className="flex items-center">
+                <span className="mx-2 text-gray-400">/</span>
+                <Link href="/products" className="text-gray-500 hover:text-blue-600">
+                  Products
+                </Link>
+              </div>
+            </li>
+            <li aria-current="page">
+              <div className="flex items-center">
+                <span className="mx-2 text-gray-400">/</span>
+                <span className="text-gray-700 truncate max-w-[200px]">{product.name}</span>
+              </div>
+            </li>
+          </ol>
+        </nav>
+        
         <button
           onClick={() => router.back()}
           className="mb-4 px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg text-gray-700 font-medium transition-colors"
@@ -73,13 +124,13 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
             <div className="space-y-4">
               <div className="relative aspect-square overflow-hidden rounded-xl shadow-md">
                 <Image
-                  src={product.images[selectedImage]}
-                  alt={product.name}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  priority
-                  className="object-cover w-full h-full"
-                />
+                    src={product.images[selectedImage]}
+                    alt={`${product.name} - ${product.category} wholesale clothing`}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    priority
+                    className="object-cover w-full h-full"
+                  />
                 {product.isSold && (
                   <>
                     <div className="absolute inset-0 bg-black bg-opacity-40"></div>
@@ -99,7 +150,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                     <div className="w-full h-full">
                       <Image
                         src={image}
-                        alt={`${product.name} - Image ${index + 1}`}
+                        alt={`${product.name} - ${product.category} wholesale clothing - Image ${index + 1}`}
                         fill
                         sizes="(max-width: 640px) 25vw, 64px"
                         className="object-cover w-full h-full"

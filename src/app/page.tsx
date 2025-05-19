@@ -10,6 +10,7 @@ import Testimonials from '@/components/Testimonials';
 import NewsletterSubscription from '@/components/NewsletterSubscription';
 import SearchBar from '@/components/SearchBar';
 import HeroSlider from '@/components/HeroSlider';
+import HomeLayout from './page-layout';
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -58,6 +59,7 @@ export default function Home() {
   const categories: (ProductCategory | 'All')[] = ['All', 'LEGGINGS', 'TOPS', 'JACKET', 'PANTS & SHORTS', 'DRESS & SKIRT', 'SKIRT PLUS SIZE', 'SKIRT ONE SIZE', 'DRESS', 'ROMPER & BODYSUIT', 'SALE'];
 
   return (
+    <HomeLayout>
     <main className="min-h-screen">
       {/* Hero Slider Section */}
       <HeroSlider />
@@ -246,5 +248,6 @@ export default function Home() {
       {/* Newsletter Section */}
       <NewsletterSubscription />
     </main>
+    </HomeLayout>
   );
 }

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.your-domain.com/sitemap.xml
+Sitemap: https://www.wholesalessuppliers.com/sitemap.xml

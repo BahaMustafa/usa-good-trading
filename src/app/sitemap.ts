@@ -4,33 +4,45 @@ import { collection, getDocs } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const baseUrl = 'https://www.wholesalessuppliers.com/';
+  const baseUrl = 'https://www.wholesalessuppliers.com';
 
-    // 1) Static routes
-    const staticRoutes = [
-        '',
-        '/products',
-        '/about',
-        '/contact',
-    ].map((path) => ({
-        url: `${baseUrl}${path}`,
-        lastModified: new Date(),
-        // Use const assertion for changeFrequency
-        changeFrequency: path === '' ? 'daily' as const : 'weekly' as const,
-        priority: path === '' ? 1.0 : 0.8,
-    }));
+  // 1) Static routes
+  const staticRoutes: MetadataRoute.Sitemap = [
+    '',
+    '/products',
+    '/about',
+    '/contact',
+  ].map((path) => ({
+    url: `${baseUrl}${path}`,
+    lastModified: new Date(),
+    changeFrequency: path === '' ? 'daily' : 'weekly',
+    priority: path === '' ? 1.0 : 0.8,
+  }));
 
-    // 2) Dynamic product routes
-    const snap = await getDocs(collection(db, 'products'));
-    const productRoutes = snap.docs.map((doc) => ({
-        url: `${baseUrl}/product/${doc.id}`,
-        lastModified:
-            (doc.data().updatedAt as { toDate: () => Date })?.toDate?.() ||
-            new Date(),
-        // Use const assertion for changeFrequency
-        changeFrequency: 'daily' as const,
-        priority: 0.7,
-    }));
+  // 2) Dynamic product routes
+  let productRoutes: MetadataRoute.Sitemap = [];
+  
+  try {
+    if (db) {
+      const productsCollection = collection(db, 'products');
+      const snap = await getDocs(productsCollection);
+      
+      productRoutes = snap.docs.map((doc) => {
+        const data = doc.data();
+        const updatedAt = (data.updatedAt as { toDate?: () => Date })?.toDate?.() ?? new Date();
 
-    return [...staticRoutes, ...productRoutes];
+        return {
+          url: `${baseUrl}/product/${doc.id}`,
+          lastModified: updatedAt,
+          changeFrequency: 'daily',
+          priority: 0.7,
+        };
+      });
+    }
+  } catch (error) {
+    console.error('Error fetching products for sitemap:', error);
+    // Continue with static routes if Firebase fails
+  }
+
+  return [...staticRoutes, ...productRoutes];
 }

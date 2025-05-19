@@ -19,7 +19,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         <div className="relative w-full aspect-square bg-gray-50 overflow-hidden">
           <Image
             src={product.images[0]}
-            alt={product.name}
+            alt={`${product.name} - ${product.category} wholesale clothing`}
             fill
             sizes="(max-width: 768px) 100vw, 25vw"
             className="object-contain w-full h-full group-hover:scale-105 transition-transform duration-500 ease-in-out"
