@@ -7,6 +7,13 @@ import { usePathname } from 'next/navigation';
 
 export default function AppTransition({ children }: { children: ReactNode }) {
   const pathname = usePathname();
+  
+  // Disable animations for product pages to prevent double animations
+  const isProductPage = pathname.startsWith('/product/');
+  
+  if (isProductPage) {
+    return <main className="pt-16 flex-1">{children}</main>;
+  }
 
   return (
     <AnimatePresence mode="wait">

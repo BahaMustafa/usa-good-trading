@@ -206,6 +206,7 @@ export default function ProductForm({ productId }: ProductFormProps) {
             type="number"
             required
             min="0"
+            step="0.01"
             value={formData.priceRange.min}
             onChange={(e) => setFormData(prev => ({
               ...prev,
@@ -220,6 +221,7 @@ export default function ProductForm({ productId }: ProductFormProps) {
             type="number"
             required
             min="0"
+            step="0.01"
             value={formData.priceRange.max}
             onChange={(e) => setFormData(prev => ({
               ...prev,

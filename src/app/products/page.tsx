@@ -70,9 +70,9 @@ export default function ProductsPage() {
   }, [products, selectedCategory, searchQuery, priceRange]);
 
   const categories: (ProductCategory | 'All')[] = [
-    'All','LEGGINGS','TOPS','JACKET','PANTS & SHORTS',
-    'DRESS & SKIRT','SKIRT PLUS SIZE','SKIRT ONE SIZE',
-    'DRESS','ROMPER & BODYSUIT','SALE'
+    'All', 'LEGGINGS', 'TOPS', 'JACKET', 'PANTS & SHORTS',
+    'DRESS & SKIRT', 'SKIRT PLUS SIZE', 'SKIRT ONE SIZE',
+    'DRESS', 'ROMPER & BODYSUIT', 'SALE'
   ];
 
   return (
