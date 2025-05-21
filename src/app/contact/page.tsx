@@ -29,7 +29,7 @@ export default function ContactPage() {
             <div className="space-y-6">
               <div>
                 <h3 className="text-base font-medium text-gray-900">Address</h3>
-                <p className="mt-1 text-gray-600">123 Fashion District, Los Angeles, CA 90015</p>
+                <p className="mt-1 text-gray-600"> Los Angeles, CA 90015</p>
               </div>
               
               <div>
@@ -39,7 +39,7 @@ export default function ContactPage() {
               
               <div>
                 <h3 className="text-base font-medium text-gray-900">Email</h3>
-                <p className="mt-1 text-gray-600">contact@usagoodtrading.com</p>
+                <p className="mt-1 text-gray-600">bhaatobase93@gmail.com</p>
               </div>
               
               <div>

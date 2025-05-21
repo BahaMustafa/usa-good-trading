@@ -10,11 +10,13 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
+    "@types/nodemailer": "^6.4.17",
     "cloudinary": "^2.6.1",
     "firebase": "^11.7.1",
     "framer-motion": "^12.12.1",
     "next": "15.3.2",
     "next-cloudinary": "^6.16.0",
+    "nodemailer": "^7.0.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-swipeable": "^7.0.2"

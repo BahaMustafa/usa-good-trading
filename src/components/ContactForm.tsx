@@ -22,13 +22,22 @@ export default function ContactForm() {
     e.preventDefault();
     setStatus('submitting');
     
-    // In a real application, you would send this data to your backend
-    // This is just a simulation for demonstration purposes
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      // Send data to our API endpoint
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
       
-      console.log('Form submitted:', formData);
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Something went wrong');
+      }
+      
       setStatus('success');
       setFormData({ name: '', email: '', message: '' });
       
@@ -105,7 +114,7 @@ export default function ContactForm() {
       
       {status === 'error' && (
         <div className="p-4 bg-red-100 text-red-700 rounded-md">
-          There was an error sending your message. Please try again.
+          There was an error sending your message. Please check your information and try again, or contact us directly at bhaatobase93@gmail.com.
         </div>
       )}
     </form>
