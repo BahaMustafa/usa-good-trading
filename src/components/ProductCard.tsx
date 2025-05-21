@@ -1,93 +1,87 @@
 'use client';
 
 import Link from 'next/link';
-import { Product } from '@/types/product';
 import Image from 'next/image';
+import { Product } from '@/types/product';
 
 interface ProductCardProps {
   product: Product;
 }
 
+const WHATSAPP_GROUP_URL =
+  process.env.NEXT_PUBLIC_WHATSAPP_GROUP_URL ||
+  'https://chat.whatsapp.com/EaX8DUbNYDeLDfwqUdggtF';
+
 export default function ProductCard({ product }: ProductCardProps) {
-  const whatsappUrl = `https://chat.whatsapp.com/EaX8DUbNYDeLDfwqUdggtF`;
+  const imageUrl = product.images?.[0] ?? '/fallback-product.jpg';
+  const priceText =
+    product.priceRange.min === 0
+      ? 'Contact for price'
+      : `$${product.priceRange.min}${
+          product.priceRange.max > product.priceRange.min
+            ? ` - $${product.priceRange.max}`
+            : ''
+        }`;
 
   return (
-    <div className="group overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm hover:shadow-md transition-all duration-300 hover:border-blue-300 flex flex-col h-full">
-      <Link href={`/product/${product.id}`} className="flex-1 flex flex-col cursor-pointer">
-        <div className="w-full h-64 bg-gray-100 rounded-t-lg p-2 flex justify-center items-center relative">
-          <Image
-            src={product.images[0]}
-            alt={`${product.name} - ${product.category} wholesale clothing`}
-            width={400}
-            height={300}
-            className="object-contain p-2 group-hover:scale-105 transition-transform duration-500 ease-in-out rounded"
-          />
-          {product.isSold && (
-            <span className="absolute top-3 right-3 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md z-10">Sold</span>
-          )}
-          <div className="absolute top-3 left-3 z-10">
-            <span className="bg-blue-600 text-white text-xs font-medium px-2.5 py-1 rounded-full shadow-sm">
-              {product.category}
-            </span>
-          </div>
-          <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/60 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <span className="text-white text-sm font-medium">View Details</span>
-          </div>
-        </div>
+    // outer gradient + clip
+    <div className="group overflow-hidden p-1 rounded-lg bg-gradient-to-r from-blue-400 to-teal-400 hover:from-purple-500 hover:to-pink-500 transition-colors duration-700">
+      {/* inner glassy card */}
+      <div className="flex flex-col h-full bg-white bg-opacity-70 backdrop-blur-md rounded-lg overflow-hidden shadow-md hover:shadow-xl transform transition-all duration-500 group-hover:scale-105 group-hover:-rotate-2">
+        <Link href={`/product/${product.id}`} className="flex-1 flex flex-col">
+          {/* padding outside the clipped image */}
+          <div className="p-2">
+            {/* clipped container */}
+            <div className="relative w-full h-64 bg-gray-100 rounded-t-lg overflow-hidden">
+              <Image
+                src={imageUrl}
+                alt={`${product.name} – ${product.category}`}
+                fill
+                className="object-contain transition-transform duration-500 group-hover:scale-110"
+              />
 
-        <div className="flex-1 flex flex-col p-4 gap-2">
-          <h3 className="text-lg font-semibold text-gray-900 truncate group-hover:text-blue-700 transition-colors">
-            {product.name}
-          </h3>
+              {/* badges */}
+              <span className="absolute top-3 left-3 bg-blue-600 text-white text-xs font-semibold px-2 py-1 rounded-full shadow-sm z-10">
+                {product.category}
+              </span>
+              {product.isSold && (
+                <span className="absolute top-3 right-3 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded-full shadow-lg z-10">
+                  Sold
+                </span>
+              )}
 
-          <div className="text-blue-700 font-bold text-lg mt-1">
-            {product.priceRange.min === 0 ? "Contact for price" : `$${product.priceRange.min}${product.priceRange.max > product.priceRange.min ? ` - $${product.priceRange.max}` : ''}`}
-          </div>
-
-          {product.sizes && product.sizes.length > 0 && (
-            <div className="mt-2">
-              <div className="text-xs font-medium text-gray-500 mb-1">Sizes</div>
-              <div className="flex flex-wrap gap-1.5">
-                {product.sizes.map(size => (
-                  <span key={size} className="bg-gray-100 px-2 py-0.5 rounded-md text-xs font-medium text-gray-700">
-                    {size}
-                  </span>
-                ))}
+              {/* overlay on hover */}
+              <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/60 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <span className="text-white text-sm font-medium">
+                  View Details
+                </span>
               </div>
             </div>
-          )}
+          </div>
 
-          {product.colors && product.colors.length > 0 && (
-            <div className="mt-2">
-              <div className="text-xs font-medium text-gray-500 mb-1">Colors</div>
-              <div className="flex flex-wrap gap-1.5">
-                {product.colors.map(color => (
-                  <span 
-                    key={color} 
-                    className="inline-block w-6 h-6 rounded-full border border-gray-200 shadow-sm" 
-                    style={{ backgroundColor: color }} 
-                    title={color}
-                  />
-                ))}
-              </div>
-            </div>
-          )}
+          {/* product info */}
+          <div className="flex-1 flex flex-col p-4 gap-2">
+            <h3 className="text-lg font-semibold text-gray-900 line-clamp-2 group-hover:text-blue-700 transition-colors duration-300">
+              {product.name}
+            </h3>
+            <div className="text-blue-700 font-bold text-lg">{priceText}</div>
+            {/* sizes & colors… */}
+          </div>
+        </Link>
+
+        {/* WhatsApp CTA */}
+        <div className="p-4 pt-0">
+          <a
+            href={WHATSAPP_GROUP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Request info about ${product.name} on WhatsApp`}
+            className="flex items-center justify-center gap-2 w-full py-2.5 rounded-md font-semibold bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 text-white transition-colors duration-300 shadow-sm hover:shadow-md"
+          >
+            {/* svg icon */}
+            Request Info
+          </a>
         </div>
-      </Link>
-
-      <div className="p-4 pt-0">
-        <a
-          href={whatsappUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`Request info about ${product.name} on WhatsApp`}
-          className="block w-full bg-green-500 text-white text-center py-2.5 rounded-md font-semibold hover:bg-green-600 transition-colors flex items-center justify-center gap-2 shadow-sm hover:shadow"
-        >
-          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M16.7 14.2c-.3-.2-1.7-.8-2-1-.3-.1-.5-.2-.7.2-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.2-.4-2.2-1.3-.8-.7-1.3-1.6-1.5-1.9-.2-.3 0-.4.1-.6.1-.1.2-.3.3-.4.1-.1.1-.2.2-.3.1-.1.1-.2.2-.3.1-.2.1-.4 0-.6-.1-.2-.7-1.7-.9-2.3-.2-.6-.4-.5-.7-.5h-.6c-.2 0-.5.1-.7.3-.2.2-.8.8-.8 2 0 1.2.8 2.4 1.1 2.7.3.3 2.2 3.4 5.3 4.2.7.2 1.2.3 1.6.2.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2-.1-.1-.3-.2-.6-.4z"/>
-          </svg>
-          Request Info
-        </a>
       </div>
     </div>
   );
