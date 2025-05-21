@@ -1,4 +1,3 @@
-// src/app/products/page.tsx
 'use client';
 
 import { useState, useEffect, ChangeEvent } from 'react';
@@ -33,7 +32,6 @@ export default function ProductsPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
 
-  // 1) Fetch products
   useEffect(() => {
     (async () => {
       const ref = collection(db, 'products');
@@ -49,7 +47,6 @@ export default function ProductsPage() {
     })();
   }, []);
 
-  // 2) Filter logic
   useEffect(() => {
     let f = products;
     if (selectedCategory !== 'All') {
@@ -80,7 +77,6 @@ export default function ProductsPage() {
       <div className="max-w-7xl mx-auto px-4">
         <h1 className="text-3xl font-bold mb-8">Our Products</h1>
 
-        {/* Filters */}
         <div className="mb-8 flex flex-col md:flex-row md:items-start md:justify-between gap-4">
           <div className="flex flex-col gap-4 w-full md:w-auto">
             <div className="w-full md:w-64">
@@ -131,7 +127,6 @@ export default function ProductsPage() {
           </div>
         </div>
 
-        {/* Animated Grid */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -139,7 +134,7 @@ export default function ProductsPage() {
           className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
         >
           {filteredProducts.map(p => (
-            <motion.div key={p.id} variants={itemVariants}>
+            <motion.div key={p.id} variants={itemVariants} className="h-full">
               <ProductCard product={p} />
             </motion.div>
           ))}

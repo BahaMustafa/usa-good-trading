@@ -9,20 +9,18 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
-  // Using WhatsApp group chat link instead of direct phone number
   const whatsappUrl = `https://chat.whatsapp.com/EaX8DUbNYDeLDfwqUdggtF`;
 
   return (
     <div className="group overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm hover:shadow-md transition-all duration-300 hover:border-blue-300 flex flex-col h-full">
       <Link href={`/product/${product.id}`} className="flex-1 flex flex-col cursor-pointer">
-        {/* Product Image with Category Tag */}
-        <div className="relative w-full aspect-square bg-gray-50 overflow-hidden">
+        <div className="w-full h-64 bg-gray-100 rounded-t-lg p-2 flex justify-center items-center relative">
           <Image
             src={product.images[0]}
             alt={`${product.name} - ${product.category} wholesale clothing`}
-            fill
-            sizes="(max-width: 768px) 100vw, 25vw"
-            className="object-contain w-full h-full group-hover:scale-105 transition-transform duration-500 ease-in-out"
+            width={400}
+            height={300}
+            className="object-contain p-2 group-hover:scale-105 transition-transform duration-500 ease-in-out rounded"
           />
           {product.isSold && (
             <span className="absolute top-3 right-3 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md z-10">Sold</span>
@@ -36,19 +34,16 @@ export default function ProductCard({ product }: ProductCardProps) {
             <span className="text-white text-sm font-medium">View Details</span>
           </div>
         </div>
-        
-        {/* Product Info */}
+
         <div className="flex-1 flex flex-col p-4 gap-2">
           <h3 className="text-lg font-semibold text-gray-900 truncate group-hover:text-blue-700 transition-colors">
             {product.name}
           </h3>
-          
-          {/* Price Range */}
+
           <div className="text-blue-700 font-bold text-lg mt-1">
             {product.priceRange.min === 0 ? "Contact for price" : `$${product.priceRange.min}${product.priceRange.max > product.priceRange.min ? ` - $${product.priceRange.max}` : ''}`}
           </div>
-          
-          {/* Sizes */}
+
           {product.sizes && product.sizes.length > 0 && (
             <div className="mt-2">
               <div className="text-xs font-medium text-gray-500 mb-1">Sizes</div>
@@ -61,8 +56,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               </div>
             </div>
           )}
-          
-          {/* Colors */}
+
           {product.colors && product.colors.length > 0 && (
             <div className="mt-2">
               <div className="text-xs font-medium text-gray-500 mb-1">Colors</div>
@@ -80,8 +74,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           )}
         </div>
       </Link>
-      
-      {/* Request Info Button */}
+
       <div className="p-4 pt-0">
         <a
           href={whatsappUrl}
