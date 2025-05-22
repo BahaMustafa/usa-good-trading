@@ -3,6 +3,8 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
 
 export default function NewsletterSubscription() {
   const [email, setEmail] = useState('');
@@ -15,13 +17,17 @@ export default function NewsletterSubscription() {
 
     setStatus('submitting');
     try {
-      // TODO: replace this with your real subscription API call
-      await new Promise((res) => setTimeout(res, 1000));
+      // write to Firestore
+      await addDoc(collection(db, 'subscribers'), {
+        email: trimmed,
+        createdAt: serverTimestamp(),
+      });
 
       setStatus('success');
       setEmail('');
       setTimeout(() => setStatus('idle'), 5000);
-    } catch {
+    } catch (err) {
+      console.error('Error saving subscriber:', err);
       setStatus('error');
     }
   };

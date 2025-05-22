@@ -1,4 +1,3 @@
-// src/components/HeroSlider.tsx
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -21,42 +20,40 @@ export default function HeroSlider() {
   const [index, setIndex] = useState(0);
   const [loading, setLoading] = useState(true);
 
-  // Fetch slides from Firestore
+  // fetch slides
   useEffect(() => {
     (async () => {
       try {
         const ref = collection(db, 'sliderImages');
         const q = query(ref, orderBy('order', 'asc'));
         const snap = await getDocs(q);
-        const data = snap.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data(),
-          createdAt: doc.data().createdAt?.toDate(),
-        })) as SliderImage[];
-        setSlides(data);
+        setSlides(
+          snap.docs.map(d => ({
+            id: d.id,
+            ...d.data(),
+            createdAt: d.data().createdAt?.toDate(),
+          })) as SliderImage[]
+        );
       } catch (err) {
-        console.error('Error loading slides:', err);
+        console.error(err);
       } finally {
         setLoading(false);
       }
     })();
   }, []);
 
-  // Auto-rotate every 3s
+  // auto-rotate
   useEffect(() => {
     if (slides.length < 2) return;
     const iv = setInterval(() => {
       setIndex(i => (i + 1) % slides.length);
-    }, 3000);
+    }, 4000);
     return () => clearInterval(iv);
   }, [slides]);
 
-  const goPrev = () =>
-    setIndex(i => (i === 0 ? slides.length - 1 : i - 1));
-  const goNext = () =>
-    setIndex(i => (i === slides.length - 1 ? 0 : i + 1));
+  const goPrev = () => setIndex(i => (i === 0 ? slides.length - 1 : i - 1));
+  const goNext = () => setIndex(i => (i + 1) % slides.length);
 
-  // Swipe handlers
   const handlers = useSwipeable({
     onSwipedLeft: goNext,
     onSwipedRight: goPrev,
@@ -72,7 +69,7 @@ export default function HeroSlider() {
   return (
     <section
       {...handlers}
-      className="relative h-[80vh] overflow-hidden"
+      className="relative h-[60vh] md:h-[50vh] overflow-hidden"
     >
       <AnimatePresence initial={false} custom={index}>
         <motion.div
@@ -81,59 +78,64 @@ export default function HeroSlider() {
           initial="enter"
           animate="center"
           exit="exit"
-          transition={{ duration: 0.5, ease: 'easeInOut' }}
+          transition={{ duration: 0.6, ease: 'easeInOut' }}
           className="absolute inset-0"
         >
           <Image
             src={slide.imageUrl}
-            alt={slide.title || 'Slide'}
+            alt={slide.title ?? 'Slide'}
             fill
             className="object-cover"
-            priority
+            priority={index === 0}
           />
-          <div className="absolute inset-0 bg-black/30" />
+          <div className="absolute inset-0 bg-black/25" />
 
-          <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
+          <motion.div
+            className="relative z-10 flex flex-col items-center justify-center h-full text-center px-6 max-w-3xl mx-auto"
+            whileHover={{ scale: 1.02 }}
+            transition={{ duration: 0.3 }}
+          >
             {slide.title && (
-              <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 drop-shadow-lg">
+              <h1 className="text-3xl md:text-5xl font-bold text-white mb-3 drop-shadow-lg">
                 {slide.title}
               </h1>
             )}
             {slide.subtitle && (
-              <p className="text-xl md:text-2xl text-white max-w-2xl mb-6 drop-shadow">
+              <p className="text-lg md:text-xl text-white mb-5 drop-shadow">
                 {slide.subtitle}
               </p>
             )}
             {slide.buttonText && slide.buttonLink && (
-              <div className="flex gap-4">
+              <div className="flex flex-col sm:flex-row gap-3">
                 <Link
                   href={slide.buttonLink}
-                  className="btn btn-primary px-8 py-3 rounded-full"
+                  className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-sm font-medium transition"
                 >
                   {slide.buttonText}
                 </Link>
                 <Link
                   href="/about"
-                  className="btn btn-secondary px-8 py-3 rounded-full"
+                  className="px-6 py-2 bg-white hover:bg-gray-100 text-gray-800 rounded-full text-sm font-medium transition"
                 >
                   Our Story
                 </Link>
               </div>
             )}
-          </div>
+          </motion.div>
         </motion.div>
       </AnimatePresence>
 
+      {/* Prev / Next */}
       <button
         onClick={goPrev}
-        className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-2 rounded-full"
+        className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-1.5 rounded-full transition"
         aria-label="Previous slide"
       >
         ‹
       </button>
       <button
         onClick={goNext}
-        className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-2 rounded-full"
+        className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-1.5 rounded-full transition"
         aria-label="Next slide"
       >
         ›
@@ -142,29 +144,28 @@ export default function HeroSlider() {
   );
 }
 
-// Fallback if no slides
 function DefaultHero() {
   return (
-    <section className="relative h-[80vh] bg-gradient-to-r from-blue-700 via-white to-red-600 overflow-hidden">
+    <section className="relative h-[60vh] md:h-[50vh] bg-gradient-to-r from-blue-700 via-white to-red-600 overflow-hidden">
       <div className="absolute inset-0 bg-black/20" />
       <div className="absolute inset-0 bg-[url('/hero-pattern.png')] opacity-10" />
-      <div className="relative h-full flex flex-col items-center justify-center text-white px-4 max-w-6xl mx-auto">
-        <h1 className="text-5xl md:text-7xl font-bold text-center mb-6 drop-shadow-md">
+      <div className="relative h-full flex flex-col items-center justify-center text-white px-6 max-w-3xl mx-auto">
+        <h1 className="text-3xl md:text-5xl font-bold text-center mb-4 drop-shadow-md">
           Premium Wholesale Clothing
         </h1>
-        <p className="text-xl md:text-2xl text-center mb-8 max-w-3xl">
+        <p className="text-lg md:text-xl text-center mb-6 max-w-2xl">
           USA Good Trading – Your trusted wholesale clothing supplier since 2009
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 mt-4">
+        <div className="flex flex-col sm:flex-row gap-3">
           <Link
             href="/products"
-            className="btn btn-primary px-8 py-3 rounded-full font-semibold text-lg shadow-lg hover:shadow-xl"
+            className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-sm font-medium transition"
           >
             Browse Products
           </Link>
           <Link
             href="/about"
-            className="btn btn-secondary px-8 py-3 rounded-full font-semibold text-lg shadow-sm hover:shadow"
+            className="px-6 py-2 bg-white hover:bg-gray-100 text-gray-800 rounded-full text-sm font-medium transition"
           >
             Our Story
           </Link>
