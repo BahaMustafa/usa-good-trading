@@ -11,6 +11,7 @@ import NewsletterSubscription from '@/components/NewsletterSubscription';
 import SearchBar from '@/components/SearchBar';
 import HeroSlider from '@/components/HeroSlider';
 import HomeLayout from './page-layout';
+import FloatingWhatsAppButton from '@/components/FloatingWhatsAppButton';
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -64,22 +65,8 @@ export default function Home() {
       {/* Hero Slider Section */}
       <HeroSlider />
 
-      {/* WhatsApp Group CTA */}
-      <section className="py-6 bg-green-50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
-          <div className="flex flex-col md:flex-row items-center justify-center gap-4">
-            <div className="text-lg font-medium text-green-800">Join our WhatsApp group for exclusive deals and updates!</div>
-            <a
-              href="https://chat.whatsapp.com/EaX8DUbNYDeLDfwqUdggtF"
-              target="_blank"
-              className="bg-green-500 text-white px-6 py-3 rounded hover:bg-green-600 inline-flex items-center gap-2 font-medium shadow-md"
-            >
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.7 14.2c-.3-.2-1.7-.8-2-1-.3-.1-.5-.2-.7.2-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.2-.4-2.2-1.3-.8-.7-1.3-1.6-1.5-1.9-.2-.3 0-.4.1-.6.1-.1.2-.3.3-.4.1-.1.1-.2.2-.3.1-.1.1-.2.2-.3.1-.2.1-.4 0-.6-.1-.2-.7-1.7-.9-2.3-.2-.6-.4-.5-.7-.5h-.6c-.2 0-.5.1-.7.3-.2.2-.8.8-.8 2 0 1.2.8 2.4 1.1 2.7.3.3 2.2 3.4 5.3 4.2.7.2 1.2.3 1.6.2.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2-.1-.1-.3-.2-.6-.4z"/></svg>
-              Join Our WhatsApp Group
-            </a>
-          </div>
-        </div>
-      </section>
+      {/* Floating WhatsApp Button - Replaces the full-width section */}
+      <FloatingWhatsAppButton />
 
       {/* New Products Section */}
       <section className="py-16 bg-white">
@@ -109,13 +96,13 @@ export default function Home() {
             </div>
           </div>
           
-          {/* Products Grid */}
+          {/* Products Grid - Changed from 4 to 3 columns on large screens */}
           {loading ? (
             <div className="flex justify-center">
               <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-600"></div>
             </div>
           ) : filteredProducts.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
               {filteredProducts.map(product => (
                 <ProductCard key={product.id} product={product} />
               ))}
@@ -173,70 +160,40 @@ export default function Home() {
                 Learn More About Us
               </Link>
             </div>
-            <div className="bg-gray-100 p-8 rounded-xl shadow-sm">
-              <h3 className="text-xl font-semibold mb-4 text-blue-700">Why Choose Us?</h3>
+            <div className="card p-8">
+              <h3 className="text-xl font-semibold mb-4 text-primary-700">Why Choose Us?</h3>
               <ul className="space-y-4">
                 <li className="flex items-start">
-                  <svg className="w-5 h-5 text-blue-600 mt-1 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 text-primary-600 mt-1 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700"><span className="font-medium">Premium Quality:</span> Carefully sourced materials and strict quality control</span>
+                  <span className="text-secondary-700"><span className="font-medium">Premium Quality:</span> Carefully sourced materials and strict quality control</span>
                 </li>
                 <li className="flex items-start">
-                  <svg className="w-5 h-5 text-blue-600 mt-1 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 text-primary-600 mt-1 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700"><span className="font-medium">Competitive Pricing:</span> Wholesale rates that maximize your profit margins</span>
+                  <span className="text-secondary-700"><span className="font-medium">Competitive Pricing:</span> Wholesale rates that maximize your profit margins</span>
                 </li>
                 <li className="flex items-start">
-                  <svg className="w-5 h-5 text-blue-600 mt-1 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 text-primary-600 mt-1 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700"><span className="font-medium">Diverse Selection:</span> Wide range of styles, sizes, and categories</span>
+                  <span className="text-secondary-700"><span className="font-medium">Diverse Selection:</span> Wide range of styles, sizes, and categories</span>
                 </li>
                 <li className="flex items-start">
-                  <svg className="w-5 h-5 text-blue-600 mt-1 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 text-primary-600 mt-1 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700"><span className="font-medium">Reliable Service:</span> Fast shipping and responsive customer support</span>
+                  <span className="text-secondary-700"><span className="font-medium">Reliable Service:</span> Fast shipping and responsive customer support</span>
+                </li>
+                <li className="flex items-start">
+                  <svg className="w-5 h-5 text-primary-600 mt-1 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-secondary-700"><span className="font-medium">Exceptional Service:</span> Our dedicated team provides personalized support for all your wholesale needs</span>
                 </li>
               </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      {/* Why Choose Us Section */}
-      <section className="py-16 px-4 bg-gray-50">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">Why Choose Us</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-blue-50 p-6 rounded-xl text-center">
-              <div className="bg-blue-100 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Quality Products</h3>
-              <p className="text-gray-600">We source only the highest quality clothing items to ensure customer satisfaction.</p>
-            </div>
-            <div className="bg-blue-50 p-6 rounded-xl text-center">
-              <div className="bg-blue-100 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Competitive Pricing</h3>
-              <p className="text-gray-600">Our wholesale prices are designed to maximize your profit margins.</p>
-            </div>
-            <div className="bg-blue-50 p-6 rounded-xl text-center">
-              <div className="bg-blue-100 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Exceptional Service</h3>
-              <p className="text-gray-600">Our dedicated team provides personalized support for all your wholesale needs.</p>
             </div>
           </div>
         </div>

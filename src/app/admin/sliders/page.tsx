@@ -66,47 +66,48 @@ export default function AdminSliders() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-secondary-50 py-8">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold">Manage Hero Slider</h1>
+          <h1 className="text-3xl font-bold text-secondary-900">Manage Hero Slider</h1>
           <Link
             href="/admin/sliders/new"
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+            className="btn btn-primary"
           >
             Add New Slider Image
           </Link>
         </div>
 
         {sliderImages.length === 0 ? (
-          <div className="bg-white rounded-lg shadow p-8 text-center">
-            <p className="text-gray-600 mb-4">
+          <div className="card p-8 text-center">
+            <p className="text-secondary-700 mb-4">
               No slider images found. Add your first slider image to
               enhance your homepage.
             </p>
             <Link
               href="/admin/sliders/new"
-              className="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+              className="btn btn-primary"
             >
               Add Slider Image
             </Link>
           </div>
         ) : (
-          <div className="bg-white rounded-lg shadow overflow-hidden">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
+          <div className="card overflow-hidden">
+            <table className="min-w-full divide-y divide-secondary-200">
+              <thead className="bg-secondary-50">
                 <tr>
                   {['Image', 'Title', 'Order', 'Actions'].map((h) => (
                     <th
                       key={h}
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider"
                     >
                       {h}
                     </th>
                   ))}
+
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="bg-white divide-y divide-secondary-200">
                 {sliderImages.map((slider) => (
                   <tr key={slider.id}>
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -120,22 +121,22 @@ export default function AdminSliders() {
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
+                      <div className="text-sm font-medium text-secondary-900">
                         {slider.title || 'No title'}
                       </div>
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-secondary-500">
                         {slider.subtitle || 'No subtitle'}
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">
+                      <div className="text-sm text-secondary-900">
                         {slider.order}
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                       <Link
                         href={`/admin/sliders/${slider.id}`}
-                        className="text-blue-600 hover:text-blue-900 mr-4"
+                        className="text-primary-600 hover:text-primary-900 mr-4"
                       >
                         Edit
                       </Link>
@@ -153,11 +154,11 @@ export default function AdminSliders() {
           </div>
         )}
 
-        <div className="mt-8 bg-blue-50 p-6 rounded-lg shadow-sm">
-          <h2 className="text-xl font-semibold mb-2">
+        <div className="mt-8 bg-primary-50 p-6 rounded-lg shadow-sm">
+          <h2 className="text-xl font-semibold mb-2 text-primary-700">
             Tips for Hero Slider Images
           </h2>
-          <ul className="list-disc pl-5 space-y-2 text-gray-700">
+          <ul className="list-disc pl-5 space-y-2 text-secondary-700">
             <li>
               Use high-quality images with a 16:9 aspect ratio for best
               results

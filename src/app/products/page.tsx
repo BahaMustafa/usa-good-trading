@@ -131,7 +131,7 @@ export default function ProductsPage() {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8"
         >
           {filteredProducts.map(p => (
             <motion.div key={p.id} variants={itemVariants} className="h-full">

@@ -49,9 +49,9 @@ export default function Testimonials() {
   if (testimonials.length === 0) return null;
 
   return (
-    <section className="py-16 bg-white">
+    <section className="py-16 bg-secondary-50">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <h2 className="text-3xl font-bold text-center mb-8">What Our Customers Say</h2>
+        <h2 className="text-3xl font-bold text-center mb-8 text-secondary-900">What Our Customers Say</h2>
 
         <motion.div
           variants={containerVariants}
@@ -64,11 +64,13 @@ export default function Testimonials() {
             <motion.div
               key={t.id}
               variants={cardVariants}
-              className="bg-gray-50 p-6 rounded-xl shadow-sm"
+              className="card h-full flex flex-col p-6 transition-all duration-300 hover:translate-y-[-4px]"
             >
-              <p className="text-gray-700 mb-4">“{t.message}”</p>
+              <div className="flex-1">
+                <p className="text-secondary-700 mb-4 italic">&ldquo;{t.message}&rdquo;</p>
+              </div>
               <div className="text-right">
-                <span className="font-semibold text-gray-900">— {t.name}</span>
+                <span className="font-semibold text-primary-700">— {t.name}</span>
               </div>
             </motion.div>
           ))}

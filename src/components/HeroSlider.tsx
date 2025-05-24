@@ -69,7 +69,7 @@ export default function HeroSlider() {
   return (
     <section
       {...handlers}
-      className="relative h-[60vh] md:h-[50vh] overflow-hidden"
+      className="relative h-[50vh] md:h-[40vh] overflow-hidden"
     >
       <AnimatePresence initial={false} custom={index}>
         <motion.div
@@ -89,6 +89,9 @@ export default function HeroSlider() {
             priority={index === 0}
           />
           <div className="absolute inset-0 bg-black/25" />
+          
+          {/* Pattern Overlay */}
+          <div className="absolute inset-0 bg-[url('/hero-pattern.svg')] opacity-20 mix-blend-overlay" />
 
           <motion.div
             className="relative z-10 flex flex-col items-center justify-center h-full text-center px-6 max-w-3xl mx-auto"
@@ -109,13 +112,13 @@ export default function HeroSlider() {
               <div className="flex flex-col sm:flex-row gap-3">
                 <Link
                   href={slide.buttonLink}
-                  className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-sm font-medium transition"
+                  className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-sm font-medium transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 border border-transparent"
                 >
                   {slide.buttonText}
                 </Link>
                 <Link
                   href="/about"
-                  className="px-6 py-2 bg-white hover:bg-gray-100 text-gray-800 rounded-full text-sm font-medium transition"
+                  className="px-6 py-2.5 bg-white hover:bg-gray-100 text-gray-800 rounded-md text-sm font-medium transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 border border-white hover:border-gray-200"
                 >
                   Our Story
                 </Link>
@@ -146,9 +149,9 @@ export default function HeroSlider() {
 
 function DefaultHero() {
   return (
-    <section className="relative h-[60vh] md:h-[50vh] bg-gradient-to-r from-blue-700 via-white to-red-600 overflow-hidden">
+    <section className="relative h-[50vh] md:h-[40vh] bg-gradient-to-r from-blue-700 via-white to-red-600 overflow-hidden">
       <div className="absolute inset-0 bg-black/20" />
-      <div className="absolute inset-0 bg-[url('/hero-pattern.png')] opacity-10" />
+      <div className="absolute inset-0 bg-[url('/hero-pattern.svg')] opacity-25 mix-blend-overlay" />
       <div className="relative h-full flex flex-col items-center justify-center text-white px-6 max-w-3xl mx-auto">
         <h1 className="text-3xl md:text-5xl font-bold text-center mb-4 drop-shadow-md">
           Premium Wholesale Clothing
@@ -159,13 +162,13 @@ function DefaultHero() {
         <div className="flex flex-col sm:flex-row gap-3">
           <Link
             href="/products"
-            className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-sm font-medium transition"
+            className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-sm font-medium transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 border border-transparent"
           >
             Browse Products
           </Link>
           <Link
             href="/about"
-            className="px-6 py-2 bg-white hover:bg-gray-100 text-gray-800 rounded-full text-sm font-medium transition"
+            className="px-6 py-2.5 bg-white hover:bg-gray-100 text-gray-800 rounded-md text-sm font-medium transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 border border-white hover:border-gray-200"
           >
             Our Story
           </Link>
