@@ -18,8 +18,28 @@ export default function ProductCard({ product }: ProductCardProps) {
       ? 'Contact for price'
       : `$${product.priceRange.min}${product.priceRange.max > product.priceRange.min ? ` - $${product.priceRange.max}` : ''}`;
 
+  // Generate a border color based on product category
+  const getBorderColor = (category: string) => {
+    const categoryColors: Record<string, string> = {
+      'LEGGINGS': 'border-pink-400',
+      'TOPS': 'border-blue-400',
+      'JACKET': 'border-orange-400',
+      'PANTS & SHORTS': 'border-green-400',
+      'DRESS & SKIRT': 'border-purple-400',
+      'SKIRT PLUS SIZE': 'border-indigo-400',
+      'SKIRT ONE SIZE': 'border-violet-400',
+      'DRESS': 'border-red-400',
+      'ROMPER & BODYSUIT': 'border-yellow-400',
+      'SALE': 'border-red-500'
+    };
+    
+    return categoryColors[category] || 'border-gray-200';
+  };
+
+  const borderColorClass = getBorderColor(product.category);
+
   return (
-    <div className="card h-full flex flex-col transition-all duration-300 hover:translate-y-[-4px]">
+    <div className={`card h-full flex flex-col transition-all duration-300 hover:translate-y-[-4px] border-2 ${borderColorClass} hover:shadow-lg`}>
       <Link href={`/product/${product.id}`} className="flex-1 flex flex-col">
         {/* Image container */}
         <div className="relative w-full h-64 bg-secondary-50 overflow-hidden rounded-t-lg">
