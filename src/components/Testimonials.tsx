@@ -53,18 +53,6 @@ export default function Testimonials() {
     fetchTestimonials();
   }, []);
 
-  useEffect(() => {
-    // Start auto-rotation
-    startAutoRotate();
-    
-    // Cleanup on unmount
-    return () => {
-      if (autoRotateRef.current) {
-        clearInterval(autoRotateRef.current);
-      }
-    };
-  }, [testimonials.length]);
-
   const startAutoRotate = () => {
     if (autoRotateRef.current) {
       clearInterval(autoRotateRef.current);
@@ -76,6 +64,18 @@ export default function Testimonials() {
       }, 5000); // Change slide every 5 seconds
     }
   };
+
+  useEffect(() => {
+    // Start auto-rotation
+    startAutoRotate();
+    
+    // Cleanup on unmount
+    return () => {
+      if (autoRotateRef.current) {
+        clearInterval(autoRotateRef.current);
+      }
+    };
+  }, [testimonials.length, startAutoRotate]);
 
   const resetAutoRotate = () => {
     if (autoRotateRef.current) {
@@ -185,7 +185,7 @@ export default function Testimonials() {
                         </svg>
                       ))}
                     </div>
-                    <p className="text-gray-700 italic mb-4">"{testimonials[currentIndex].content}"</p>
+                    <p className="text-gray-700 italic mb-4">&quot;{testimonials[currentIndex].content}&quot;</p>
                     <div>
                       <p className="font-semibold text-gray-900">{testimonials[currentIndex].name}</p>
                       <p className="text-sm text-gray-500">{testimonials[currentIndex].role}</p>
