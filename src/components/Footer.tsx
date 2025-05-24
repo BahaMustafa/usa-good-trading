@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
-  const addressQuery = encodeURIComponent('123 Fashion District, Los Angeles, CA 90015');
+  // Removed unused variable 'addressQuery'
 
   return (
     <footer className="bg-gray-900 text-gray-300 py-12">
@@ -61,14 +61,7 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Quick Links */}
-        {/* …same as before… */}
-
-        {/* Categories */}
-        {/* …same as before… */}
-
-        {/* Contact */}
-        {/* …same as before… */}
+      
       </div>
 
       {/* Bottom Bar */}
