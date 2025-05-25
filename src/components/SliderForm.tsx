@@ -142,6 +142,7 @@ export default function SliderForm({ sliderId }: SliderFormProps) {
                   src={formData.imageUrl}
                   alt="Slider preview"
                   fill
+                  sizes="(max-width: 768px) 100vw, 600px"
                   className="object-cover rounded-lg"
                 />
               </div>

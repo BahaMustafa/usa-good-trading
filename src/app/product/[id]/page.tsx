@@ -122,6 +122,7 @@ export default function ProductPage() {
                       src={product.images[selectedImage] || '/fallback-product.jpg'}
                       alt={`${product.name} – ${product.category}`}
                       fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       className="object-contain"
                       priority
                     />
@@ -155,6 +156,7 @@ export default function ProductPage() {
                           src={img}
                           alt={`${product.name} thumbnail ${idx + 1}`}
                           fill
+                          sizes="(max-width: 768px) 60px, 80px"
                           className="object-cover transform transition-transform duration-300 hover:scale-110"
                         />
                       </button>

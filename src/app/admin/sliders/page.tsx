@@ -116,6 +116,7 @@ export default function AdminSliders() {
                           src={slider.imageUrl}
                           alt={slider.title || 'Slider image'}
                           fill
+                          sizes="(max-width: 768px) 100vw, 240px"
                           className="object-cover rounded"
                         />
                       </div>

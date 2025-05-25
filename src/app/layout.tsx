@@ -6,8 +6,10 @@ import Navigation from '@/components/Navigation';
 import AppTransition from '@/components/AppTransition';
 import Footer from '@/components/Footer';
 import { defaultMetadata } from '@/lib/metadata';
+import { generateViewport } from './generate-viewport';
 
 export const metadata = defaultMetadata;
+export const viewport = generateViewport();
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
