@@ -1,3 +1,6 @@
+'use client';
+
+import Link from 'next/link';
 import ContactForm from '@/components/ContactForm';
 
 export default function AboutPage() {
@@ -9,22 +12,38 @@ export default function AboutPage() {
           <div className="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
         </div>
         
+        {/* Updated Our Story block */}
         <div className="bg-white rounded-xl shadow-md p-8 mb-12">
           <h2 className="text-2xl font-semibold mb-4 text-blue-700">Our Story</h2>
-          <p className="text-gray-700 mb-6 leading-relaxed">
-            We&apos;re a small LA-based team with 20+ years of experience buying from the Fashion District. Every piece you see here is hand-picked and available for fast shipping.
+
+          <p className="text-gray-700 mb-4 leading-relaxed">
+            For over 20 years, our team has hand-picked top-quality wholesale apparel and delivered it straight to your door.
           </p>
-          <p className="text-gray-700 mb-6 leading-relaxed">
-            Our team specializes in importing and distributing high-quality clothing items including t-shirts, jackets, skirts, dresses, 
-            jogger pants, and leggings. With our decades of experience in the garment trade, we&apos;ve built strong relationships with manufacturers 
-            that allow us to offer you premium products at competitive wholesale prices.
+
+          <ul className="list-disc list-inside text-gray-700 mb-6">
+            <li>🔹 20+ years of sourcing premium clothing</li>
+            <li>🔹 10,000+ orders shipped nationwide</li>
+            <li>🔹 Trusted partnerships with leading manufacturers</li>
+          </ul>
+
+          <p className="text-gray-700 mb-4 leading-relaxed">
+            We specialize in fast, reliable shipping of women’s and men’s essentials—t-shirts, jackets, dresses, joggers, and more. Every piece is selected for quality, durability, and on-trend style.
           </p>
-          <p className="text-gray-700 mb-6 leading-relaxed">
-            Our commitment to quality, competitive pricing, and exceptional customer service has allowed us to build lasting relationships 
-            with our clients and expand our product offerings year after year.
+
+          <p className="text-gray-700 leading-relaxed">
+            Whether you run a boutique or an online store, we’re here to help you grow.{' '}
+            <Link href="/new-arrivals" className="text-blue-600 underline">
+              Browse our latest collection
+            </Link>{' '}
+            or{' '}
+            <Link href="/contact" className="text-blue-600 underline">
+              request a custom quote
+            </Link>{' '}
+            today.
           </p>
         </div>
-        
+        {/* End Our Story block */}
+
         <div className="bg-white rounded-xl shadow-md p-8 mb-8">
           <h2 className="text-2xl font-semibold mb-4">Our Mission</h2>
           <p className="text-gray-700 mb-6 leading-relaxed">
@@ -41,7 +60,7 @@ export default function AboutPage() {
             <div>
               <h3 className="text-lg font-medium mb-2">What is the minimum order quantity?</h3>
               <p className="text-gray-700">Please contact us for specific details about the products you&apos;re interested in.</p>
-              </div>
+            </div>
             
             <div>
               <h3 className="text-lg font-medium mb-2">Do you offer international shipping?</h3>
@@ -63,7 +82,7 @@ export default function AboutPage() {
         <div className="bg-white rounded-xl shadow-md p-8">
           <h2 className="text-2xl font-semibold mb-4">Contact Us</h2>
           <p className="text-gray-700 mb-6 leading-relaxed">
-          We&apos;re always happy to hear from potential clients and answer any questions you might have about our products or services.
+            We&apos;re always happy to hear from potential clients and answer any questions you might have about our products or services.
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
